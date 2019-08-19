@@ -1,12 +1,29 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <meta charset="UTF-8">
+            <title>{% block title %}O'FAQ{% endblock %}</title>
+
+            <link rel="icon" href="{{ asset('img/faqk.ico') }}" />  
+            <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+            
+        {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <header>
+
+            {% include "navigation/_main_nav.html.twig" %}
+
+        </header>
+
+        {% block content %}{% endblock %}
+
+        <footer>
+
+        </footer>
+        
         {% block javascripts %}{% endblock %}
     </body>
 </html>
