@@ -22,6 +22,9 @@
       <parameter key="DebugBundle">Symfony\Bundle\DebugBundle\DebugBundle</parameter>
       <parameter key="MakerBundle">Symfony\Bundle\MakerBundle\MakerBundle</parameter>
       <parameter key="WebServerBundle">Symfony\Bundle\WebServerBundle\WebServerBundle</parameter>
+      <parameter key="EasyAdminBundle">EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle</parameter>
+      <parameter key="DoctrineFixturesBundle">Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle</parameter>
+      <parameter key="NelmioAliceBundle">Nelmio\Alice\Bridge\Symfony\NelmioAliceBundle</parameter>
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
       <parameter key="FrameworkBundle" type="collection">
@@ -75,6 +78,18 @@
       <parameter key="WebServerBundle" type="collection">
         <parameter key="path">/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/web-server-bundle</parameter>
         <parameter key="namespace">Symfony\Bundle\WebServerBundle</parameter>
+      </parameter>
+      <parameter key="EasyAdminBundle" type="collection">
+        <parameter key="path">/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src</parameter>
+        <parameter key="namespace">EasyCorp\Bundle\EasyAdminBundle</parameter>
+      </parameter>
+      <parameter key="DoctrineFixturesBundle" type="collection">
+        <parameter key="path">/var/www/html/Spé/Parcour-Symfo-Kain/vendor/doctrine/doctrine-fixtures-bundle</parameter>
+        <parameter key="namespace">Doctrine\Bundle\FixturesBundle</parameter>
+      </parameter>
+      <parameter key="NelmioAliceBundle" type="collection">
+        <parameter key="path">/var/www/html/Spé/Parcour-Symfo-Kain/vendor/nelmio/alice/src/Bridge/Symfony</parameter>
+        <parameter key="namespace">Nelmio\Alice\Bridge\Symfony</parameter>
       </parameter>
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
@@ -287,6 +302,73 @@
       </parameter>
     </parameter>
     <parameter key="env(VAR_DUMPER_SERVER)">127.0.0.1:9912</parameter>
+    <parameter key="easyadmin.config" type="collection">
+      <parameter key="site_name">EasyAdmin</parameter>
+      <parameter key="formats" type="collection">
+        <parameter key="date">Y-m-d</parameter>
+        <parameter key="time">H:i:s</parameter>
+        <parameter key="datetime">F j, Y H:i</parameter>
+        <parameter key="dateinterval">%y Year(s) %m Month(s) %d Day(s)</parameter>
+      </parameter>
+      <parameter key="disabled_actions" type="collection"/>
+      <parameter key="translation_domain">messages</parameter>
+      <parameter key="user" type="collection">
+        <parameter key="display_name">true</parameter>
+        <parameter key="display_avatar">true</parameter>
+        <parameter key="name_property_path">__toString</parameter>
+        <parameter key="avatar_property_path">null</parameter>
+      </parameter>
+      <parameter key="design" type="collection">
+        <parameter key="brand_color">hsl(230, 55%, 60%)</parameter>
+        <parameter key="form_theme" type="collection">
+          <parameter>@EasyAdmin/form/bootstrap_4.html.twig</parameter>
+        </parameter>
+        <parameter key="assets" type="collection">
+          <parameter key="css" type="collection"/>
+          <parameter key="js" type="collection"/>
+          <parameter key="favicon" type="collection">
+            <parameter key="path">favicon.ico</parameter>
+            <parameter key="mime_type">image/x-icon</parameter>
+          </parameter>
+        </parameter>
+        <parameter key="menu" type="collection"/>
+      </parameter>
+      <parameter key="list" type="collection">
+        <parameter key="actions" type="collection"/>
+        <parameter key="collapse_actions">false</parameter>
+        <parameter key="batch_actions" type="collection"/>
+        <parameter key="max_results">15</parameter>
+        <parameter key="item_permission">null</parameter>
+      </parameter>
+      <parameter key="search" type="collection"/>
+      <parameter key="edit" type="collection">
+        <parameter key="actions" type="collection"/>
+        <parameter key="item_permission">null</parameter>
+      </parameter>
+      <parameter key="new" type="collection">
+        <parameter key="actions" type="collection"/>
+        <parameter key="item_permission">null</parameter>
+      </parameter>
+      <parameter key="show" type="collection">
+        <parameter key="actions" type="collection"/>
+        <parameter key="max_results">10</parameter>
+        <parameter key="item_permission">null</parameter>
+      </parameter>
+      <parameter key="entities" type="collection"/>
+    </parameter>
+    <parameter key="nelmio_alice.functions_blacklist" type="collection">
+      <parameter>current</parameter>
+      <parameter>shuffle</parameter>
+      <parameter>date</parameter>
+      <parameter>time</parameter>
+      <parameter>file</parameter>
+      <parameter>md5</parameter>
+      <parameter>sha1</parameter>
+    </parameter>
+    <parameter key="nelmio_alice.locale">en_US</parameter>
+    <parameter key="nelmio_alice.seed">1</parameter>
+    <parameter key="nelmio_alice.loading_limit">5</parameter>
+    <parameter key="nelmio_alice.max_unique_values_retry">150</parameter>
     <parameter key="data_collector.templates" type="collection">
       <parameter key="data_collector.request" type="collection">
         <parameter>request</parameter>
@@ -356,6 +438,10 @@
         <parameter>dump</parameter>
         <parameter>@Debug/Profiler/dump.html.twig</parameter>
       </parameter>
+      <parameter key="easyadmin.data_collector" type="collection">
+        <parameter>easyadmin</parameter>
+        <parameter>@EasyAdmin/data_collector/easyadmin.html.twig</parameter>
+      </parameter>
       <parameter key="data_collector.config" type="collection">
         <parameter>config</parameter>
         <parameter>@WebProfiler/Collector/config.html.twig</parameter>
@@ -389,6 +475,9 @@
       <call method="setContainer">
         <argument type="service" id=".service_locator.CDOTD6..App\Controller\QuestionController"/>
       </call>
+    </service>
+    <service id="App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true">
+      <tag name="doctrine.fixture.orm"/>
     </service>
     <service id="App\Repository\QuestionRepository" class="App\Repository\QuestionRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
@@ -511,6 +600,7 @@
         <argument key="swiftmailer.email_sender.listener" type="service" id="swiftmailer.email_sender.listener" on-invalid="ignore_uninitialized"/>
         <argument key="monolog.handler.main" type="service" id="monolog.handler.main" on-invalid="ignore_uninitialized"/>
         <argument key="monolog.handler.console" type="service" id="monolog.handler.console" on-invalid="ignore_uninitialized"/>
+        <argument key="cache.easyadmin" type="service" id="cache.easyadmin" on-invalid="ignore_uninitialized"/>
       </argument>
       <argument type="collection">
         <argument key="cache.app">reset</argument>
@@ -531,6 +621,7 @@
         <argument key="swiftmailer.email_sender.listener">reset</argument>
         <argument key="monolog.handler.main">reset</argument>
         <argument key="monolog.handler.console">reset</argument>
+        <argument key="cache.easyadmin">reset</argument>
       </argument>
     </service>
     <service id="reverse_container" class="Symfony\Component\DependencyInjection\ReverseContainer" public="false">
@@ -621,6 +712,7 @@
         <argument>cache.property_info</argument>
         <argument>cache.messenger.restart_workers_signal</argument>
         <argument>cache.security_expression_language</argument>
+        <argument>cache.easyadmin</argument>
       </argument>
       <call method="setName">
         <argument>cache:pool:list</argument>
@@ -738,12 +830,21 @@
       <argument type="collection">
         <argument>Symfony\Component\Form\Extension\Core\Type</argument>
         <argument>Symfony\Bridge\Doctrine\Form\Type</argument>
+        <argument>EasyCorp\Bundle\EasyAdminBundle\Form\Type</argument>
       </argument>
       <argument type="collection">
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\ChoiceType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FileType</argument>
         <argument>Symfony\Bridge\Doctrine\Form\Type\EntityType</argument>
+        <argument>EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminFormType</argument>
+        <argument>EasyCorp\Bundle\EasyAdminBundle\Form\Type\FileUploadType</argument>
+        <argument>EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminFiltersFormType</argument>
+        <argument>EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminAutocompleteType</argument>
+        <argument>EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminBatchFormType</argument>
+        <argument>EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminDividerType</argument>
+        <argument>EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminSectionType</argument>
+        <argument>EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminGroupType</argument>
       </argument>
       <argument type="collection">
         <argument>Symfony\Component\Form\Extension\Core\Type\TransformationFailureExtension</argument>
@@ -754,10 +855,12 @@
         <argument>Symfony\Component\Form\Extension\Validator\Type\UploadValidatorExtension</argument>
         <argument>Symfony\Component\Form\Extension\Csrf\Type\FormTypeCsrfExtension</argument>
         <argument>Symfony\Component\Form\Extension\DataCollector\Type\DataCollectorTypeExtension</argument>
+        <argument>EasyCorp\Bundle\EasyAdminBundle\Form\Extension\EasyAdminExtension</argument>
       </argument>
       <argument type="collection">
         <argument>Symfony\Component\Form\Extension\Validator\ValidatorTypeGuesser</argument>
         <argument>Symfony\Bridge\Doctrine\Form\DoctrineOrmTypeGuesser</argument>
+        <argument>EasyCorp\Bundle\EasyAdminBundle\Form\Guesser\MissingDoctrineOrmTypeGuesser</argument>
       </argument>
       <argument type="service" id="debug.file_link_formatter" on-invalid="null"/>
       <call method="setName">
@@ -915,6 +1018,7 @@
         <argument key="cache.annotations" type="service" id="cache.annotations" on-invalid="ignore_uninitialized"/>
         <argument key="cache.property_info" type="service" id="cache.property_info" on-invalid="ignore_uninitialized"/>
         <argument key="cache.security_expression_language" type="service" id="cache.security_expression_language" on-invalid="ignore_uninitialized"/>
+        <argument key="cache.easyadmin" type="service" id="cache.easyadmin" on-invalid="ignore_uninitialized"/>
       </argument>
     </service>
     <service id="cache.global_clearer" class="Symfony\Component\HttpKernel\CacheClearer\Psr6CacheClearer" public="true">
@@ -928,6 +1032,7 @@
         <argument key="cache.property_info" type="service" id="cache.property_info" on-invalid="ignore_uninitialized"/>
         <argument key="cache.messenger.restart_workers_signal" type="service" id="cache.messenger.restart_workers_signal" on-invalid="ignore_uninitialized"/>
         <argument key="cache.security_expression_language" type="service" id="cache.security_expression_language" on-invalid="ignore_uninitialized"/>
+        <argument key="cache.easyadmin" type="service" id="cache.easyadmin" on-invalid="ignore_uninitialized"/>
       </argument>
     </service>
     <service id="identity_translator" class="Symfony\Component\Translation\IdentityTranslator" public="false"/>
@@ -997,6 +1102,7 @@
     </service>
     <service id="form.registry" class="Symfony\Component\Form\FormRegistry" public="false">
       <argument type="collection">
+        <argument type="service" id="easyadmin.filter.extension"/>
         <argument type="service" id="form.extension"/>
       </argument>
       <argument type="service" id="form.resolved_type_factory"/>
@@ -1005,7 +1111,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id=".service_locator.Fck5jT9"/>
+      <argument type="service" id=".service_locator.ZaHguDM"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -1014,6 +1120,7 @@
           <argument type="service" id="form.type_extension.upload.validator"/>
           <argument type="service" id="form.type_extension.csrf"/>
           <argument type="service" id="form.type_extension.form.data_collector"/>
+          <argument type="service" id="easyadmin.form.type.extension"/>
         </argument>
         <argument key="Symfony\Component\Form\Extension\Core\Type\RepeatedType" type="iterator">
           <argument type="service" id="form.type_extension.repeated.validator"/>
@@ -1025,6 +1132,7 @@
       <argument type="iterator">
         <argument type="service" id="form.type_guesser.validator"/>
         <argument type="service" id="form.type_guesser.doctrine"/>
+        <argument type="service" id="easyadmin.form.guesser.missing_doctrine_orm_type_guesser"/>
       </argument>
     </service>
     <service id="form.type_guesser.validator" class="Symfony\Component\Form\Extension\Validator\ValidatorTypeGuesser" public="false">
@@ -1243,6 +1351,8 @@
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.ar.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.ar.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.ar.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.ar.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.ar.xlf</argument>
           </argument>
           <argument key="az" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.az.xlf</argument>
@@ -1258,16 +1368,22 @@
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.bg.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.bg.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.bg.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.bg.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.bg.xlf</argument>
           </argument>
           <argument key="ca" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.ca.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.ca.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.ca.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.ca.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.ca.xlf</argument>
           </argument>
           <argument key="cs" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.cs.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.cs.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.cs.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.cs.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.cs.xlf</argument>
           </argument>
           <argument key="cy" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.cy.xlf</argument>
@@ -1276,26 +1392,36 @@
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.da.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.da.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.da.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.da.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.da.xlf</argument>
           </argument>
           <argument key="de" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.de.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.de.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.de.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.de.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.de.xlf</argument>
           </argument>
           <argument key="el" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.el.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.el.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.el.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.el.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.el.xlf</argument>
           </argument>
           <argument key="en" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.en.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.en.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.en.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.en.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.en.xlf</argument>
           </argument>
           <argument key="es" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.es.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.es.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.es.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.es.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.es.xlf</argument>
           </argument>
           <argument key="et" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.et.xlf</argument>
@@ -1305,25 +1431,35 @@
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.eu.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.eu.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.eu.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.eu.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.eu.xlf</argument>
           </argument>
           <argument key="fa" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.fa.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.fa.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.fa.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.fa.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.fa.xlf</argument>
           </argument>
           <argument key="fi" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.fi.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.fi.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.fi.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.fi.xlf</argument>
           </argument>
           <argument key="fr" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.fr.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.fr.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.fr.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.fr.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.fr.xlf</argument>
           </argument>
           <argument key="gl" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.gl.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.gl.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.gl.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.gl.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.gl.xlf</argument>
           </argument>
           <argument key="he" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.he.xlf</argument>
@@ -1334,11 +1470,15 @@
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.hr.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.hr.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.hr.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.hr.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.hr.xlf</argument>
           </argument>
           <argument key="hu" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.hu.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.hu.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.hu.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.hu.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.hu.xlf</argument>
           </argument>
           <argument key="hy" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.hy.xlf</argument>
@@ -1353,6 +1493,8 @@
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.it.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.it.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.it.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.it.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.it.xlf</argument>
           </argument>
           <argument key="ja" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.ja.xlf</argument>
@@ -1368,6 +1510,8 @@
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.lt.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.lt.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.lt.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.lt.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.lt.xlf</argument>
           </argument>
           <argument key="lv" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.lv.xlf</argument>
@@ -1387,6 +1531,8 @@
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.nl.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.nl.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.nl.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.nl.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.nl.xlf</argument>
           </argument>
           <argument key="nn" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.nn.xlf</argument>
@@ -1402,10 +1548,14 @@
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.pl.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.pl.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.pl.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.pl.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.pl.xlf</argument>
           </argument>
           <argument key="pt" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.pt.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.pt.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.pt.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.pt.xlf</argument>
           </argument>
           <argument key="pt_BR" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.pt_BR.xlf</argument>
@@ -1416,11 +1566,15 @@
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.ro.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.ro.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.ro.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.ro.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.ro.xlf</argument>
           </argument>
           <argument key="ru" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.ru.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.ru.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.ru.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.ru.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.ru.xlf</argument>
           </argument>
           <argument key="sk" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.sk.xlf</argument>
@@ -1431,6 +1585,8 @@
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.sl.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.sl.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.sl.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.sl.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.sl.xlf</argument>
           </argument>
           <argument key="sq" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.sq.xlf</argument>
@@ -1449,6 +1605,8 @@
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.sv.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.sv.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.sv.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.sv.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.sv.xlf</argument>
           </argument>
           <argument key="th" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.th.xlf</argument>
@@ -1463,11 +1621,15 @@
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.tr.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.tr.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.tr.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.tr.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.tr.xlf</argument>
           </argument>
           <argument key="uk" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.uk.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.uk.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.uk.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.uk.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.uk.xlf</argument>
           </argument>
           <argument key="vi" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.vi.xlf</argument>
@@ -1478,6 +1640,8 @@
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.zh_CN.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations/validators.zh_CN.xlf</argument>
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.zh_CN.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.zh_CN.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.zh_CN.xlf</argument>
           </argument>
           <argument key="zh_TW" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations/validators.zh_TW.xlf</argument>
@@ -1485,11 +1649,16 @@
           <argument key="pt_PT" type="collection">
             <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations/security.pt_PT.xlf</argument>
           </argument>
+          <argument key="sr_RS" type="collection">
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.sr_RS.xlf</argument>
+            <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations/messages.sr_RS.xlf</argument>
+          </argument>
         </argument>
         <argument key="scanned_directories" type="collection">
           <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/validator/Resources/translations</argument>
           <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/form/Resources/translations</argument>
           <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/security-core/Resources/translations</argument>
+          <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/translations</argument>
           <argument>/var/www/html/Spé/Parcour-Symfo-Kain/translations</argument>
           <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/framework-bundle/Resources/translations</argument>
           <argument>/var/www/html/Spé/Parcour-Symfo-Kain/src/Resources/FrameworkBundle/translations</argument>
@@ -1517,6 +1686,11 @@
           <argument>/var/www/html/Spé/Parcour-Symfo-Kain/src/Resources/MakerBundle/translations</argument>
           <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/web-server-bundle/Resources/translations</argument>
           <argument>/var/www/html/Spé/Parcour-Symfo-Kain/src/Resources/WebServerBundle/translations</argument>
+          <argument>/var/www/html/Spé/Parcour-Symfo-Kain/src/Resources/EasyAdminBundle/translations</argument>
+          <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/doctrine/doctrine-fixtures-bundle/Resources/translations</argument>
+          <argument>/var/www/html/Spé/Parcour-Symfo-Kain/src/Resources/DoctrineFixturesBundle/translations</argument>
+          <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/nelmio/alice/src/Bridge/Symfony/Resources/translations</argument>
+          <argument>/var/www/html/Spé/Parcour-Symfo-Kain/src/Resources/NelmioAliceBundle/translations</argument>
           <argument>/var/www/html/Spé/Parcour-Symfo-Kain/src/Resources/translations</argument>
         </argument>
       </argument>
@@ -1780,6 +1954,9 @@
         <argument type="service" id="data_collector.dump"/>
       </call>
       <call method="add">
+        <argument type="service" id="easyadmin.data_collector"/>
+      </call>
+      <call method="add">
         <argument type="service" id="data_collector.config"/>
       </call>
     </service>
@@ -1872,6 +2049,10 @@
         <argument>cache.security_expression_language</argument>
         <argument type="service" id="cache.security_expression_language"/>
       </call>
+      <call method="addInstance">
+        <argument>cache.easyadmin</argument>
+        <argument type="service" id="cache.easyadmin"/>
+      </call>
     </service>
     <service id=".1_ResolvedFormTypeFactory~I2Fncyv" class="Symfony\Component\Form\ResolvedFormTypeFactory" public="false"/>
     <service id="form.type_extension.form.data_collector" class="Symfony\Component\Form\Extension\DataCollector\Type\DataCollectorTypeExtension" public="false">
@@ -1952,6 +2133,22 @@
         <argument type="collection">
           <argument type="service" id="data_collector.router"/>
           <argument>onKernelController</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>kernel.controller</argument>
+        <argument type="collection">
+          <argument type="service" id="easyadmin.listener.controller"/>
+          <argument>onKernelController</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>easy_admin.post_initialize</argument>
+        <argument type="collection">
+          <argument type="service" id="easyadmin.listener.request_post_initialize"/>
+          <argument>initializeRequest</argument>
         </argument>
         <argument>0</argument>
       </call>
@@ -2125,6 +2322,14 @@
       </call>
       <call method="addListener">
         <argument>kernel.request</argument>
+        <argument type="collection">
+          <argument type="service" id="debug.debug_handlers_listener"/>
+          <argument>configure</argument>
+        </argument>
+        <argument>2048</argument>
+      </call>
+      <call method="addListener">
+        <argument>console.command</argument>
         <argument type="collection">
           <argument type="service" id="debug.debug_handlers_listener"/>
           <argument>configure</argument>
@@ -3581,6 +3786,16 @@
       <tag name="kernel.event_subscriber"/>
       <tag name="container.hot_path"/>
     </service>
+    <service id="templating.helper.logout_url" class="Symfony\Bundle\SecurityBundle\Templating\Helper\LogoutUrlHelper" public="false">
+      <tag name="templating.helper" alias="logout_url"/>
+      <argument type="service" id="security.logout_url_generator"/>
+      <deprecated>The "%service_id%" service is deprecated since Symfony 4.3 and will be removed in 5.0.</deprecated>
+    </service>
+    <service id="templating.helper.security" class="Symfony\Bundle\SecurityBundle\Templating\Helper\SecurityHelper" public="false">
+      <tag name="templating.helper" alias="security"/>
+      <argument type="service" id="security.authorization_checker" on-invalid="ignore"/>
+      <deprecated>The "%service_id%" service is deprecated since Symfony 4.3 and will be removed in 5.0.</deprecated>
+    </service>
     <service id="twig.extension.logout_url" class="Symfony\Bridge\Twig\Extension\LogoutUrlExtension" public="false">
       <tag name="twig.extension"/>
       <argument type="service" id="security.logout_url_generator"/>
@@ -3909,6 +4124,9 @@
       <call method="addExtension">
         <argument type="service" id="twig.extension.webprofiler"/>
       </call>
+      <call method="addExtension">
+        <argument type="service" id="easyadmin.twig.extension"/>
+      </call>
       <call method="addGlobal">
         <argument>app</argument>
         <argument type="service" id="twig.app_variable"/>
@@ -4014,6 +4232,14 @@
       <call method="addPath">
         <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/symfony/debug-bundle/Resources/views</argument>
         <argument>!Debug</argument>
+      </call>
+      <call method="addPath">
+        <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/views</argument>
+        <argument>EasyAdmin</argument>
+      </call>
+      <call method="addPath">
+        <argument>/var/www/html/Spé/Parcour-Symfo-Kain/vendor/easycorp/easyadmin-bundle/src/Resources/views</argument>
+        <argument>!EasyAdmin</argument>
       </call>
       <call method="addPath">
         <argument>/var/www/html/Spé/Parcour-Symfo-Kain/templates</argument>
@@ -4501,9 +4727,793 @@
         <argument>server:log</argument>
       </call>
     </service>
+    <service id="cache.easyadmin" class="Symfony\Component\Cache\Adapter\TraceableAdapter" public="false">
+      <tag name="cache.pool"/>
+      <tag name="kernel.reset" method="reset"/>
+      <argument type="service" id="cache.easyadmin.recorder_inner"/>
+    </service>
+    <service id="easyadmin.config.manager" class="EasyCorp\Bundle\EasyAdminBundle\Configuration\ConfigManager" public="true">
+      <argument>%easyadmin.config%</argument>
+      <argument>true</argument>
+      <argument type="service" id="property_accessor"/>
+      <argument type="service" id="cache.easyadmin"/>
+      <call method="addConfigPass">
+        <argument type="service" id="easyadmin.configuration.normalizer_config_pass"/>
+      </call>
+      <call method="addConfigPass">
+        <argument type="service" id="easyadmin.configuration.design_config_pass"/>
+      </call>
+      <call method="addConfigPass">
+        <argument type="service" id="easyadmin.configuration.menu_config_pass"/>
+      </call>
+      <call method="addConfigPass">
+        <argument type="service" id="easyadmin.configuration.action_config_pass"/>
+      </call>
+      <call method="addConfigPass">
+        <argument type="service" id="easyadmin.configuration.metadata_config_pass"/>
+      </call>
+      <call method="addConfigPass">
+        <argument type="service" id="easyadmin.configuration.property_config_pass"/>
+      </call>
+      <call method="addConfigPass">
+        <argument type="service" id="easyadmin.configuration.view_config_pass"/>
+      </call>
+      <call method="addConfigPass">
+        <argument type="service" id="easyadmin.configuration.template_config_pass"/>
+      </call>
+      <call method="addConfigPass">
+        <argument type="service" id="easyadmin.configuration.default_config_pass"/>
+      </call>
+    </service>
+    <service id="easyadmin.query_builder" class="EasyCorp\Bundle\EasyAdminBundle\Search\QueryBuilder" public="true">
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="easyadmin.finder" class="EasyCorp\Bundle\EasyAdminBundle\Search\Finder" public="false">
+      <argument type="service" id="easyadmin.query_builder"/>
+      <argument type="service" id="easyadmin.paginator"/>
+    </service>
+    <service id="easyadmin.autocomplete" class="EasyCorp\Bundle\EasyAdminBundle\Search\Autocomplete" public="true">
+      <argument type="service" id="easyadmin.config.manager"/>
+      <argument type="service" id="easyadmin.finder"/>
+      <argument type="service" id="property_accessor"/>
+    </service>
+    <service id="easyadmin.paginator" class="EasyCorp\Bundle\EasyAdminBundle\Search\Paginator" public="true"/>
+    <service id="easyadmin.router" class="EasyCorp\Bundle\EasyAdminBundle\Router\EasyAdminRouter" public="true">
+      <argument type="service" id="easyadmin.config.manager"/>
+      <argument type="service" id="router.default"/>
+      <argument type="service" id="property_accessor"/>
+      <argument type="service" id="request_stack" on-invalid="null"/>
+    </service>
+    <service id="easyadmin.twig.extension" class="EasyCorp\Bundle\EasyAdminBundle\Twig\EasyAdminTwigExtension" public="false">
+      <tag name="twig.extension"/>
+      <argument type="service" id="easyadmin.config.manager"/>
+      <argument type="service" id="property_accessor"/>
+      <argument type="service" id="easyadmin.router"/>
+      <argument>true</argument>
+      <argument type="service" id="security.logout_url_generator" on-invalid="null"/>
+      <argument type="service" id="translator.data_collector" on-invalid="null"/>
+      <argument type="service" id="easyadmin.security.authorization_checker"/>
+    </service>
+    <service id="easyadmin.security.authorization_checker" class="EasyCorp\Bundle\EasyAdminBundle\Security\AuthorizationChecker" public="true">
+      <argument type="service" id="security.authorization_checker" on-invalid="null"/>
+    </service>
+    <service id="easyadmin.listener.controller" class="EasyCorp\Bundle\EasyAdminBundle\EventListener\ControllerListener" public="true">
+      <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController"/>
+      <tag name="container.hot_path"/>
+      <argument type="service" id="easyadmin.config.manager"/>
+      <argument type="service" id="debug.controller_resolver"/>
+    </service>
+    <service id="easyadmin.listener.request_post_initialize" class="EasyCorp\Bundle\EasyAdminBundle\EventListener\RequestPostInitializeListener" public="true">
+      <tag name="kernel.event_listener" event="easy_admin.post_initialize" method="initializeRequest"/>
+      <argument type="service" id="doctrine"/>
+      <argument type="service" id="request_stack" on-invalid="null"/>
+    </service>
+    <service id="easyadmin.data_collector" class="EasyCorp\Bundle\EasyAdminBundle\DataCollector\EasyAdminDataCollector" public="false">
+      <tag name="data_collector" template="@EasyAdmin/data_collector/easyadmin.html.twig" id="easyadmin"/>
+      <argument type="service" id="easyadmin.config.manager"/>
+    </service>
+    <service id="easyadmin.configuration.normalizer_config_pass" class="EasyCorp\Bundle\EasyAdminBundle\Configuration\NormalizerConfigPass" public="false">
+      <tag name="easyadmin.config_pass" priority="90"/>
+      <argument type="service" id="service_container"/>
+      <argument type="service" id="easyadmin.filter.registry"/>
+    </service>
+    <service id="easyadmin.configuration.design_config_pass" class="EasyCorp\Bundle\EasyAdminBundle\Configuration\DesignConfigPass" public="false">
+      <tag name="easyadmin.config_pass" priority="80"/>
+      <argument>en</argument>
+    </service>
+    <service id="easyadmin.configuration.menu_config_pass" class="EasyCorp\Bundle\EasyAdminBundle\Configuration\MenuConfigPass" public="false">
+      <tag name="easyadmin.config_pass" priority="70"/>
+    </service>
+    <service id="easyadmin.configuration.action_config_pass" class="EasyCorp\Bundle\EasyAdminBundle\Configuration\ActionConfigPass" public="false">
+      <tag name="easyadmin.config_pass" priority="60"/>
+    </service>
+    <service id="easyadmin.configuration.metadata_config_pass" class="EasyCorp\Bundle\EasyAdminBundle\Configuration\MetadataConfigPass" public="false">
+      <tag name="easyadmin.config_pass" priority="50"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="easyadmin.configuration.property_config_pass" class="EasyCorp\Bundle\EasyAdminBundle\Configuration\PropertyConfigPass" public="false">
+      <tag name="easyadmin.config_pass" priority="40"/>
+      <argument type="service" id="form.registry"/>
+      <argument type="service" id="easyadmin.filter.registry"/>
+    </service>
+    <service id="easyadmin.configuration.view_config_pass" class="EasyCorp\Bundle\EasyAdminBundle\Configuration\ViewConfigPass" public="false">
+      <tag name="easyadmin.config_pass" priority="30"/>
+    </service>
+    <service id="easyadmin.configuration.template_config_pass" class="EasyCorp\Bundle\EasyAdminBundle\Configuration\TemplateConfigPass" public="false">
+      <tag name="easyadmin.config_pass" priority="20"/>
+      <argument type="service" id="twig.loader.native_filesystem"/>
+    </service>
+    <service id="easyadmin.configuration.default_config_pass" class="EasyCorp\Bundle\EasyAdminBundle\Configuration\DefaultConfigPass" public="false">
+      <tag name="easyadmin.config_pass" priority="10"/>
+    </service>
+    <service id="EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController" class="EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController" public="true" autowire="true">
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.gGTGrJ1.EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController"/>
+      </call>
+    </service>
+    <service id="easyadmin.form.type" class="EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminFormType">
+      <tag name="form.type" alias="easyadmin"/>
+      <argument type="service" id="easyadmin.config.manager"/>
+      <argument type="collection">
+        <argument key="9" type="service" id="easyadmin.form.type.configurator.code_editor"/>
+        <argument key="8" type="service" id="easyadmin.form.type.configurator.textarea"/>
+        <argument key="7" type="service" id="easyadmin.form.type.configurator.autocomplete"/>
+        <argument key="6" type="service" id="easyadmin.form.type.configurator.collection"/>
+        <argument key="5" type="service" id="easyadmin.form.type.configurator.checkbox"/>
+        <argument key="4" type="service" id="easyadmin.filter.type.configurator.choice"/>
+        <argument key="3" type="service" id="easyadmin.form.type.configurator.type"/>
+        <argument key="2" type="service" id="easyadmin.form.type.configurator.entity"/>
+        <argument key="1" type="service" id="easyadmin.form.type.configurator.ivory_ckeditor"/>
+        <argument key="0" type="service" id="easyadmin.form.type.configurator.fos_ckeditor"/>
+      </argument>
+      <argument type="service" id="easyadmin.security.authorization_checker"/>
+    </service>
+    <service id="easyadmin.form.type.fileupload" class="EasyCorp\Bundle\EasyAdminBundle\Form\Type\FileUploadType">
+      <tag name="form.type"/>
+      <argument>/var/www/html/Spé/Parcour-Symfo-Kain</argument>
+    </service>
+    <service id="easyadmin.form.type.filters" class="EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminFiltersFormType">
+      <tag name="form.type" alias="easyadmin_filters"/>
+      <argument type="service" id="easyadmin.config.manager"/>
+      <argument type="collection">
+        <argument key="9" type="service" id="easyadmin.form.type.configurator.code_editor"/>
+        <argument key="8" type="service" id="easyadmin.form.type.configurator.textarea"/>
+        <argument key="7" type="service" id="easyadmin.form.type.configurator.autocomplete"/>
+        <argument key="6" type="service" id="easyadmin.form.type.configurator.collection"/>
+        <argument key="5" type="service" id="easyadmin.form.type.configurator.checkbox"/>
+        <argument key="4" type="service" id="easyadmin.filter.type.configurator.choice"/>
+        <argument key="3" type="service" id="easyadmin.form.type.configurator.type"/>
+        <argument key="2" type="service" id="easyadmin.form.type.configurator.entity"/>
+        <argument key="1" type="service" id="easyadmin.form.type.configurator.ivory_ckeditor"/>
+        <argument key="0" type="service" id="easyadmin.form.type.configurator.fos_ckeditor"/>
+      </argument>
+    </service>
+    <service id="easyadmin.form.type.autocomplete" class="EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminAutocompleteType">
+      <tag name="form.type" alias="easyadmin_autocomplete"/>
+      <argument type="service" id="easyadmin.config.manager"/>
+    </service>
+    <service id="easyadmin.form.type.batch" class="EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminBatchFormType">
+      <tag name="form.type" alias="easyadmin_batch"/>
+      <argument type="service" id="easyadmin.config.manager"/>
+    </service>
+    <service id="easyadmin.form.type.divider" class="EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminDividerType">
+      <tag name="form.type" alias="easyadmin_divider"/>
+    </service>
+    <service id="easyadmin.form.type.section" class="EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminSectionType">
+      <tag name="form.type" alias="easyadmin_section"/>
+    </service>
+    <service id="easyadmin.form.type.group" class="EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminGroupType">
+      <tag name="form.type" alias="easyadmin_group"/>
+    </service>
+    <service id="easyadmin.form.type.extension" class="EasyCorp\Bundle\EasyAdminBundle\Form\Extension\EasyAdminExtension">
+      <tag name="form.type_extension" alias="form" extended_type="Symfony\Component\Form\Extension\Core\Type\FormType" extended-type="Symfony\Component\Form\Extension\Core\Type\FormType"/>
+      <argument type="service" id="request_stack" on-invalid="null"/>
+    </service>
+    <service id="easyadmin.form.type.configurator.code_editor" class="EasyCorp\Bundle\EasyAdminBundle\Form\Type\Configurator\CodeEditorTypeConfigurator" public="false">
+      <tag name="easyadmin.form.type.configurator" priority="50"/>
+    </service>
+    <service id="easyadmin.filter.type.configurator.choice" class="EasyCorp\Bundle\EasyAdminBundle\Form\Filter\Type\Configurator\ChoiceFilterTypeConfigurator">
+      <tag name="easyadmin.form.type.configurator" priority="0"/>
+    </service>
+    <service id="easyadmin.form.type.configurator.textarea" class="EasyCorp\Bundle\EasyAdminBundle\Form\Type\Configurator\TextareaTypeConfigurator" public="false">
+      <tag name="easyadmin.form.type.configurator" priority="40"/>
+    </service>
+    <service id="easyadmin.form.type.configurator.autocomplete" class="EasyCorp\Bundle\EasyAdminBundle\Form\Type\Configurator\AutocompleteTypeConfigurator" public="false">
+      <tag name="easyadmin.form.type.configurator" priority="30"/>
+    </service>
+    <service id="easyadmin.form.type.configurator.collection" class="EasyCorp\Bundle\EasyAdminBundle\Form\Type\Configurator\CollectionTypeConfigurator" public="false">
+      <tag name="easyadmin.form.type.configurator" priority="20"/>
+    </service>
+    <service id="easyadmin.form.type.configurator.checkbox" class="EasyCorp\Bundle\EasyAdminBundle\Form\Type\Configurator\CheckboxTypeConfigurator" public="false">
+      <tag name="easyadmin.form.type.configurator" priority="10"/>
+    </service>
+    <service id="easyadmin.form.type.configurator.type" class="EasyCorp\Bundle\EasyAdminBundle\Form\Type\Configurator\TypeConfigurator" public="false">
+      <tag name="easyadmin.form.type.configurator" priority="0"/>
+      <argument type="service" id="easyadmin.config.manager"/>
+    </service>
+    <service id="easyadmin.form.type.configurator.entity" class="EasyCorp\Bundle\EasyAdminBundle\Form\Type\Configurator\EntityTypeConfigurator" public="false">
+      <tag name="easyadmin.form.type.configurator" priority="-20"/>
+    </service>
+    <service id="easyadmin.form.type.configurator.ivory_ckeditor" class="EasyCorp\Bundle\EasyAdminBundle\Form\Type\Configurator\IvoryCKEditorTypeConfigurator" public="false">
+      <tag name="easyadmin.form.type.configurator" priority="-130"/>
+    </service>
+    <service id="easyadmin.form.type.configurator.fos_ckeditor" class="EasyCorp\Bundle\EasyAdminBundle\Form\Type\Configurator\FOSCKEditorTypeConfigurator" public="false">
+      <tag name="easyadmin.form.type.configurator" priority="-130"/>
+    </service>
+    <service id="easyadmin.filter.registry" class="EasyCorp\Bundle\EasyAdminBundle\Form\Filter\FilterRegistry" public="true">
+      <argument type="collection">
+        <argument key="array">easyadmin.filter.type.array</argument>
+        <argument key="boolean">easyadmin.filter.type.boolean</argument>
+        <argument key="comparison">easyadmin.filter.type.comparison</argument>
+        <argument key="date">easyadmin.filter.type.date</argument>
+        <argument key="dateinterval">easyadmin.filter.type.dateinterval</argument>
+        <argument key="datetime">easyadmin.filter.type.datetime</argument>
+        <argument key="decimal">easyadmin.filter.type.decimal</argument>
+        <argument key="choice">easyadmin.filter.type.choice</argument>
+        <argument key="entity">easyadmin.filter.type.entity</argument>
+        <argument key="float">easyadmin.filter.type.float</argument>
+        <argument key="integer">easyadmin.filter.type.integer</argument>
+        <argument key="text">easyadmin.filter.type.text</argument>
+        <argument key="textarea">easyadmin.filter.type.textarea</argument>
+        <argument key="time">easyadmin.filter.type.time</argument>
+      </argument>
+      <argument type="iterator">
+        <argument type="service" id="easyadmin.filter.type_guesser.doctrine"/>
+      </argument>
+    </service>
+    <service id="easyadmin.filter.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension">
+      <argument type="service" id=".service_locator.jusAm.q"/>
+      <argument type="collection"/>
+      <argument type="iterator"/>
+    </service>
+    <service id="easyadmin.filter.type_guesser.doctrine" class="EasyCorp\Bundle\EasyAdminBundle\Form\Filter\Guesser\DoctrineOrmFilterTypeGuesser">
+      <tag name="easyadmin.filter.type_guesser"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="easyadmin.form.guesser.missing_doctrine_orm_type_guesser" class="EasyCorp\Bundle\EasyAdminBundle\Form\Guesser\MissingDoctrineOrmTypeGuesser" public="true">
+      <tag name="form.type_guesser"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="easyadmin.filter.type.array" class="EasyCorp\Bundle\EasyAdminBundle\Form\Filter\Type\ArrayFilterType">
+      <tag name="easyadmin.filter.type" alias="array"/>
+    </service>
+    <service id="easyadmin.filter.type.boolean" class="EasyCorp\Bundle\EasyAdminBundle\Form\Filter\Type\BooleanFilterType">
+      <tag name="easyadmin.filter.type" alias="boolean"/>
+    </service>
+    <service id="easyadmin.filter.type.comparison" class="EasyCorp\Bundle\EasyAdminBundle\Form\Filter\Type\ComparisonFilterType">
+      <tag name="easyadmin.filter.type" alias="comparison"/>
+    </service>
+    <service id="easyadmin.filter.type.date" class="EasyCorp\Bundle\EasyAdminBundle\Form\Filter\Type\DateTimeFilterType">
+      <tag name="easyadmin.filter.type" alias="date"/>
+      <argument>Symfony\Component\Form\Extension\Core\Type\DateType</argument>
+    </service>
+    <service id="easyadmin.filter.type.dateinterval" class="EasyCorp\Bundle\EasyAdminBundle\Form\Filter\Type\ComparisonFilterType">
+      <tag name="easyadmin.filter.type" alias="dateinterval"/>
+      <argument>Symfony\Component\Form\Extension\Core\Type\DateIntervalType</argument>
+      <argument type="collection"/>
+      <argument></argument>
+      <argument type="collection">
+        <argument key="type">datetime</argument>
+      </argument>
+    </service>
+    <service id="easyadmin.filter.type.datetime" class="EasyCorp\Bundle\EasyAdminBundle\Form\Filter\Type\DateTimeFilterType">
+      <tag name="easyadmin.filter.type" alias="datetime"/>
+    </service>
+    <service id="easyadmin.filter.type.decimal" class="EasyCorp\Bundle\EasyAdminBundle\Form\Filter\Type\NumericFilterType">
+      <tag name="easyadmin.filter.type" alias="decimal"/>
+      <argument>Symfony\Component\Form\Extension\Core\Type\NumberType</argument>
+      <argument type="collection">
+        <argument key="input">string</argument>
+      </argument>
+    </service>
+    <service id="easyadmin.filter.type.choice" class="EasyCorp\Bundle\EasyAdminBundle\Form\Filter\Type\ChoiceFilterType">
+      <tag name="easyadmin.filter.type" alias="choice"/>
+    </service>
+    <service id="easyadmin.filter.type.entity" class="EasyCorp\Bundle\EasyAdminBundle\Form\Filter\Type\EntityFilterType">
+      <tag name="easyadmin.filter.type" alias="entity"/>
+    </service>
+    <service id="easyadmin.filter.type.float" class="EasyCorp\Bundle\EasyAdminBundle\Form\Filter\Type\NumericFilterType">
+      <tag name="easyadmin.filter.type" alias="float"/>
+    </service>
+    <service id="easyadmin.filter.type.integer" class="EasyCorp\Bundle\EasyAdminBundle\Form\Filter\Type\NumericFilterType">
+      <tag name="easyadmin.filter.type" alias="integer"/>
+      <argument>Symfony\Component\Form\Extension\Core\Type\IntegerType</argument>
+    </service>
+    <service id="easyadmin.filter.type.text" class="EasyCorp\Bundle\EasyAdminBundle\Form\Filter\Type\TextFilterType">
+      <tag name="easyadmin.filter.type" alias="text"/>
+    </service>
+    <service id="easyadmin.filter.type.textarea" class="EasyCorp\Bundle\EasyAdminBundle\Form\Filter\Type\TextFilterType">
+      <tag name="easyadmin.filter.type" alias="textarea"/>
+      <argument>Symfony\Component\Form\Extension\Core\Type\TextareaType</argument>
+    </service>
+    <service id="easyadmin.filter.type.time" class="EasyCorp\Bundle\EasyAdminBundle\Form\Filter\Type\DateTimeFilterType">
+      <tag name="easyadmin.filter.type" alias="time"/>
+      <argument>Symfony\Component\Form\Extension\Core\Type\TimeType</argument>
+    </service>
+    <service id="doctrine.fixtures_load_command" class="Doctrine\Bundle\FixturesBundle\Command\LoadDataFixturesDoctrineCommand">
+      <tag name="console.command" command="doctrine:fixtures:load"/>
+      <argument type="service" id="doctrine.fixtures.loader"/>
+      <argument type="service" id="doctrine"/>
+      <call method="setName">
+        <argument>doctrine:fixtures:load</argument>
+      </call>
+    </service>
+    <service id="doctrine.fixtures.loader" class="Doctrine\Bundle\FixturesBundle\Loader\SymfonyFixturesLoader" public="false">
+      <argument type="service" id="service_container"/>
+      <call method="addFixtures">
+        <argument type="collection">
+          <argument type="collection">
+            <argument key="fixture" type="service" id="App\DataFixtures\AppFixtures"/>
+            <argument key="groups" type="collection"/>
+          </argument>
+        </argument>
+      </call>
+    </service>
+    <service id="nelmio_alice.generator.instantiator.existing_instance" class="Nelmio\Alice\Generator\Instantiator\ExistingInstanceInstantiator">
+      <argument type="service" id="nelmio_alice.generator.instantiator.resolver"/>
+    </service>
+    <service id="nelmio_alice.generator.instantiator.resolver" class="Nelmio\Alice\Generator\Instantiator\InstantiatorResolver">
+      <argument type="service" id="nelmio_alice.generator.instantiator.registry"/>
+    </service>
+    <service id="nelmio_alice.generator.instantiator.registry" class="Nelmio\Alice\Generator\Instantiator\InstantiatorRegistry">
+      <argument type="collection">
+        <argument type="service" id="nelmio_alice.generator.instantiator.chainable.no_caller_method_instantiator"/>
+        <argument type="service" id="nelmio_alice.generator.instantiator.chainable.null_constructor_instantiator"/>
+        <argument type="service" id="nelmio_alice.generator.instantiator.chainable.no_method_call_instantiator"/>
+        <argument type="service" id="nelmio_alice.generator.instantiator.chainable.static_factory_instantiator"/>
+      </argument>
+    </service>
+    <service id="nelmio_alice.generator.instantiator.chainable.no_caller_method_instantiator" class="Nelmio\Alice\Generator\Instantiator\Chainable\NoCallerMethodCallInstantiator">
+      <tag name="nelmio_alice.generator.instantiator.chainable_instantiator"/>
+    </service>
+    <service id="nelmio_alice.generator.instantiator.chainable.null_constructor_instantiator" class="Nelmio\Alice\Generator\Instantiator\Chainable\NullConstructorInstantiator">
+      <tag name="nelmio_alice.generator.instantiator.chainable_instantiator"/>
+    </service>
+    <service id="nelmio_alice.generator.instantiator.chainable.no_method_call_instantiator" class="Nelmio\Alice\Generator\Instantiator\Chainable\NoMethodCallInstantiator">
+      <tag name="nelmio_alice.generator.instantiator.chainable_instantiator"/>
+    </service>
+    <service id="nelmio_alice.generator.instantiator.chainable.static_factory_instantiator" class="Nelmio\Alice\Generator\Instantiator\Chainable\StaticFactoryInstantiator">
+      <tag name="nelmio_alice.generator.instantiator.chainable_instantiator"/>
+    </service>
+    <service id="nelmio_alice.generator.caller.simple" class="Nelmio\Alice\Generator\Caller\SimpleCaller">
+      <argument type="service" id="nelmio_alice.generator.caller.registry"/>
+      <argument type="service" id="nelmio_alice.generator.resolver.value.registry"/>
+    </service>
+    <service id="nelmio_alice.generator.caller.registry" class="Nelmio\Alice\Generator\Caller\CallProcessorRegistry">
+      <argument type="collection">
+        <argument type="service" id="nelmio_alice.generator.caller.chainable.configurator_method_call"/>
+        <argument type="service" id="nelmio_alice.generator.caller.chainable.method_call_with_reference"/>
+        <argument type="service" id="nelmio_alice.generator.caller.chainable.optional_method_call"/>
+        <argument type="service" id="nelmio_alice.generator.caller.chainable.simple_call"/>
+      </argument>
+    </service>
+    <service id="nelmio_alice.generator.caller.chainable.configurator_method_call" class="Nelmio\Alice\Generator\Caller\Chainable\ConfiguratorMethodCallProcessor">
+      <tag name="nelmio_alice.generator.caller.chainable_call_processor"/>
+    </service>
+    <service id="nelmio_alice.generator.caller.chainable.method_call_with_reference" class="Nelmio\Alice\Generator\Caller\Chainable\MethodCallWithReferenceProcessor">
+      <tag name="nelmio_alice.generator.caller.chainable_call_processor"/>
+    </service>
+    <service id="nelmio_alice.generator.caller.chainable.optional_method_call" class="Nelmio\Alice\Generator\Caller\Chainable\OptionalMethodCallProcessor">
+      <tag name="nelmio_alice.generator.caller.chainable_call_processor"/>
+    </service>
+    <service id="nelmio_alice.generator.caller.chainable.simple_call" class="Nelmio\Alice\Generator\Caller\Chainable\SimpleMethodCallProcessor">
+      <tag name="nelmio_alice.generator.caller.chainable_call_processor"/>
+    </service>
+    <service id="nelmio_alice.generator.resolver.parameter_bag.remove_conflicting_parameters" class="Nelmio\Alice\Generator\Resolver\Parameter\RemoveConflictingParametersParameterBagResolver">
+      <argument type="service" id="nelmio_alice.generator.resolver.parameter_bag.simple"/>
+    </service>
+    <service id="nelmio_alice.generator.resolver.parameter_bag.simple" class="Nelmio\Alice\Generator\Resolver\Parameter\SimpleParameterBagResolver">
+      <argument type="service" id="nelmio_alice.generator.resolver.parameter.registry"/>
+    </service>
+    <service id="nelmio_alice.generator.resolver.parameter.registry" class="Nelmio\Alice\Generator\Resolver\Parameter\ParameterResolverRegistry">
+      <argument type="collection">
+        <argument type="service" id="nelmio_alice.generator.resolver.parameter.chainable.static_parameter_resolver"/>
+        <argument type="service" id="nelmio_alice.generator.resolver.parameter.chainable.array_parameter_resolver"/>
+        <argument type="service" id="nelmio_alice.generator.resolver.parameter.chainable.recursive_parameter_resolver"/>
+      </argument>
+    </service>
+    <service id="nelmio_alice.generator.resolver.parameter.chainable.static_parameter_resolver" class="Nelmio\Alice\Generator\Resolver\Parameter\Chainable\StaticParameterResolver">
+      <tag name="nelmio_alice.generator.resolver.parameter.chainable_resolver"/>
+    </service>
+    <service id="nelmio_alice.generator.resolver.parameter.chainable.array_parameter_resolver" class="Nelmio\Alice\Generator\Resolver\Parameter\Chainable\ArrayParameterResolver">
+      <tag name="nelmio_alice.generator.resolver.parameter.chainable_resolver"/>
+    </service>
+    <service id="nelmio_alice.generator.resolver.parameter.chainable.recursive_parameter_resolver" class="Nelmio\Alice\Generator\Resolver\Parameter\Chainable\RecursiveParameterResolver">
+      <tag name="nelmio_alice.generator.resolver.parameter.chainable_resolver"/>
+      <argument type="service" id="nelmio_alice.generator.resolver.parameter.chainable.string_parameter_resolver"/>
+      <argument>5</argument>
+    </service>
+    <service id="nelmio_alice.generator.resolver.parameter.chainable.string_parameter_resolver" class="Nelmio\Alice\Generator\Resolver\Parameter\Chainable\StringParameterResolver"/>
+    <service id="nelmio_alice.generator.resolver.fixture_bag.template_bag" class="Nelmio\Alice\Generator\Resolver\Fixture\TemplateFixtureBagResolver"/>
+    <service id="nelmio_alice.generator.resolver.value.registry" class="Nelmio\Alice\Generator\Resolver\Value\ValueResolverRegistry">
+      <argument type="collection">
+        <argument type="service" id="nelmio_alice.generator.resolver.value.chainable.array_value_resolver"/>
+        <argument type="service" id="nelmio_alice.generator.resolver.value.chainable.dynamic_array_value_resolver"/>
+        <argument type="service" id="nelmio_alice.generator.resolver.value.chainable.evaluated_value_resolver"/>
+        <argument type="service" id="nelmio_alice.generator.resolver.value.chainable.function_argument_resolver"/>
+        <argument type="service" id="nelmio_alice.generator.resolver.value.chainable.fixture_property_reference_resolver"/>
+        <argument type="service" id="nelmio_alice.generator.resolver.value.chainable.fixture_method_call_reference_resolver"/>
+        <argument type="service" id="nelmio_alice.generator.resolver.value.chainable.unresolved_fixture_reference_resolver"/>
+        <argument type="service" id="nelmio_alice.generator.resolver.value.chainable.fixture_wildcard_reference_resolver"/>
+        <argument type="service" id="nelmio_alice.generator.resolver.value.chainable.list_value_resolver"/>
+        <argument type="service" id="nelmio_alice.generator.resolver.value.chainable.optional_value_resolver"/>
+        <argument type="service" id="nelmio_alice.generator.resolver.value.chainable.parameter_value_resolver"/>
+        <argument type="service" id="nelmio_alice.generator.resolver.value.chainable.unique_value_resolver"/>
+        <argument type="service" id="nelmio_alice.generator.resolver.value.chainable.value_for_current_value_resolver"/>
+        <argument type="service" id="nelmio_alice.generator.resolver.value.chainable.variable_value_resolver"/>
+      </argument>
+    </service>
+    <service id="nelmio_alice.generator.resolver.value.unique_values_pool" class="Nelmio\Alice\Generator\Resolver\UniqueValuesPool"/>
+    <service id="nelmio_alice.generator.resolver.value.chainable.array_value_resolver" class="Nelmio\Alice\Generator\Resolver\Value\Chainable\ArrayValueResolver">
+      <tag name="nelmio_alice.generator.resolver.value.chainable_resolver"/>
+    </service>
+    <service id="nelmio_alice.generator.resolver.value.chainable.dynamic_array_value_resolver" class="Nelmio\Alice\Generator\Resolver\Value\Chainable\DynamicArrayValueResolver">
+      <tag name="nelmio_alice.generator.resolver.value.chainable_resolver"/>
+    </service>
+    <service id="nelmio_alice.generator.resolver.value.chainable.evaluated_value_resolver" class="Nelmio\Alice\Generator\Resolver\Value\Chainable\EvaluatedValueResolver">
+      <tag name="nelmio_alice.generator.resolver.value.chainable_resolver"/>
+    </service>
+    <service id="nelmio_alice.generator.resolver.value.chainable.faker_value_resolver" class="Nelmio\Alice\Generator\Resolver\Value\Chainable\FakerFunctionCallValueResolver">
+      <argument type="service" id="nelmio_alice.faker.generator"/>
+    </service>
+    <service id="nelmio_alice.generator.resolver.value.chainable.php_value_resolver" class="Nelmio\Alice\Generator\Resolver\Value\Chainable\PhpFunctionCallValueResolver">
+      <argument>%nelmio_alice.functions_blacklist%</argument>
+      <argument type="service" id="nelmio_alice.generator.resolver.value.chainable.faker_value_resolver"/>
+    </service>
+    <service id="nelmio_alice.generator.resolver.value.chainable.function_argument_resolver" class="Nelmio\Alice\Generator\Resolver\Value\Chainable\FunctionCallArgumentResolver">
+      <tag name="nelmio_alice.generator.resolver.value.chainable_resolver"/>
+      <argument type="service" id="nelmio_alice.generator.resolver.value.chainable.php_value_resolver"/>
+    </service>
+    <service id="nelmio_alice.generator.resolver.value.chainable.fixture_property_reference_resolver" class="Nelmio\Alice\Generator\Resolver\Value\Chainable\FixturePropertyReferenceResolver">
+      <tag name="nelmio_alice.generator.resolver.value.chainable_resolver"/>
+      <argument type="service" id="nelmio_alice.property_accessor.std"/>
+    </service>
+    <service id="nelmio_alice.generator.resolver.value.chainable.fixture_method_call_reference_resolver" class="Nelmio\Alice\Generator\Resolver\Value\Chainable\FixtureMethodCallReferenceResolver">
+      <tag name="nelmio_alice.generator.resolver.value.chainable_resolver"/>
+    </service>
+    <service id="nelmio_alice.generator.resolver.value.chainable.fixture_reference_resolver" class="Nelmio\Alice\Generator\Resolver\Value\Chainable\FixtureReferenceResolver"/>
+    <service id="nelmio_alice.generator.resolver.value.chainable.self_fixture_reference_resolver" class="Nelmio\Alice\Generator\Resolver\Value\Chainable\SelfFixtureReferenceResolver">
+      <argument type="service" id="nelmio_alice.generator.resolver.value.chainable.fixture_reference_resolver"/>
+    </service>
+    <service id="nelmio_alice.generator.resolver.value.chainable.unresolved_fixture_reference_resolver" class="Nelmio\Alice\Generator\Resolver\Value\Chainable\UnresolvedFixtureReferenceIdResolver">
+      <tag name="nelmio_alice.generator.resolver.value.chainable_resolver"/>
+      <argument type="service" id="nelmio_alice.generator.resolver.value.chainable.self_fixture_reference_resolver"/>
+    </service>
+    <service id="nelmio_alice.generator.resolver.value.chainable.fixture_wildcard_reference_resolver" class="Nelmio\Alice\Generator\Resolver\Value\Chainable\FixtureWildcardReferenceResolver">
+      <tag name="nelmio_alice.generator.resolver.value.chainable_resolver"/>
+    </service>
+    <service id="nelmio_alice.generator.resolver.value.chainable.list_value_resolver" class="Nelmio\Alice\Generator\Resolver\Value\Chainable\ListValueResolver">
+      <tag name="nelmio_alice.generator.resolver.value.chainable_resolver"/>
+    </service>
+    <service id="nelmio_alice.generator.resolver.value.chainable.optional_value_resolver" class="Nelmio\Alice\Generator\Resolver\Value\Chainable\OptionalValueResolver">
+      <tag name="nelmio_alice.generator.resolver.value.chainable_resolver"/>
+    </service>
+    <service id="nelmio_alice.generator.resolver.value.chainable.parameter_value_resolver" class="Nelmio\Alice\Generator\Resolver\Value\Chainable\ParameterValueResolver">
+      <tag name="nelmio_alice.generator.resolver.value.chainable_resolver"/>
+    </service>
+    <service id="nelmio_alice.generator.resolver.value.chainable.unique_value_resolver" class="Nelmio\Alice\Generator\Resolver\Value\Chainable\UniqueValueResolver">
+      <tag name="nelmio_alice.generator.resolver.value.chainable_resolver"/>
+      <argument type="service" id="nelmio_alice.generator.resolver.value.unique_values_pool"/>
+      <argument>null</argument>
+      <argument>150</argument>
+    </service>
+    <service id="nelmio_alice.generator.resolver.value.chainable.value_for_current_value_resolver" class="Nelmio\Alice\Generator\Resolver\Value\Chainable\ValueForCurrentValueResolver">
+      <tag name="nelmio_alice.generator.resolver.value.chainable_resolver"/>
+    </service>
+    <service id="nelmio_alice.generator.resolver.value.chainable.variable_value_resolver" class="Nelmio\Alice\Generator\Resolver\Value\Chainable\VariableValueResolver">
+      <tag name="nelmio_alice.generator.resolver.value.chainable_resolver"/>
+    </service>
+    <service id="nelmio_alice.generator.resolver.fixture_set.remove_conflicting_objects" class="Nelmio\Alice\Generator\Resolver\FixtureSet\RemoveConflictingObjectsResolver">
+      <argument type="service" id="nelmio_alice.generator.resolver.fixture_set.simple"/>
+    </service>
+    <service id="nelmio_alice.generator.resolver.fixture_set.simple" class="Nelmio\Alice\Generator\Resolver\FixtureSet\SimpleFixtureSetResolver">
+      <argument type="service" id="nelmio_alice.generator.resolver.parameter_bag.remove_conflicting_parameters"/>
+      <argument type="service" id="nelmio_alice.generator.resolver.fixture_bag.template_bag"/>
+    </service>
+    <service id="nelmio_alice.generator.hydrator.simple" class="Nelmio\Alice\Generator\Hydrator\SimpleHydrator">
+      <argument type="service" id="nelmio_alice.generator.hydrator.property.symfony_property_access"/>
+    </service>
+    <service id="nelmio_alice.generator.hydrator.property.symfony_property_access" class="Nelmio\Alice\Generator\Hydrator\Property\SymfonyPropertyAccessorHydrator">
+      <argument type="service" id="nelmio_alice.property_accessor.std"/>
+    </service>
+    <service id="nelmio_alice.generator.double_pass" class="Nelmio\Alice\Generator\DoublePassGenerator">
+      <argument type="service" id="nelmio_alice.generator.resolver.fixture_set.remove_conflicting_objects"/>
+      <argument type="service" id="nelmio_alice.generator.object_generator.complete"/>
+    </service>
+    <service id="nelmio_alice.generator.object_generator.complete" class="Nelmio\Alice\Generator\ObjectGenerator\CompleteObjectGenerator">
+      <argument type="service" id="nelmio_alice.generator.object_generator.simple"/>
+    </service>
+    <service id="nelmio_alice.generator.object_generator.simple" class="Nelmio\Alice\Generator\ObjectGenerator\SimpleObjectGenerator">
+      <argument type="service" id="nelmio_alice.generator.resolver.value.registry"/>
+      <argument type="service" id="nelmio_alice.generator.instantiator.existing_instance"/>
+      <argument type="service" id="nelmio_alice.generator.hydrator.simple"/>
+      <argument type="service" id="nelmio_alice.generator.caller.simple"/>
+    </service>
+    <service id="nelmio_alice.property_accessor.std" class="Nelmio\Alice\PropertyAccess\StdPropertyAccessor">
+      <argument type="service" id="property_accessor"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.registry" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Parser\TokenParser\TokenParserRegistry">
+      <argument type="collection">
+        <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.dynamic_array_token_parser"/>
+        <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.escaped_value_token_parser"/>
+        <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.fixture_list_reference_token_parser"/>
+        <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.fixture_method_reference_token_parser"/>
+        <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.fixture_range_reference_token_parser"/>
+        <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.method_reference_token_parser"/>
+        <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.optional_token_parser"/>
+        <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.parameter_token_parser"/>
+        <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.property_reference_token_parser"/>
+        <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.variable_reference_token_parser"/>
+        <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.simple_reference_token_parser"/>
+        <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.string_array_token_parser"/>
+        <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.string_token_parser"/>
+        <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.tolerant_function_token_parser"/>
+        <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.variable_token_parser"/>
+        <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.wildcard_reference_token_parser"/>
+      </argument>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.argument_escaper" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Parser\TokenParser\Chainable\ArgumentEscaper"/>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.dynamic_array_token_parser" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Parser\TokenParser\Chainable\DynamicArrayTokenParser">
+      <tag name="nelmio_alice.fixture_builder.expression_language.chainable_token_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.escaped_value_token_parser" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Parser\TokenParser\Chainable\EscapedValueTokenParser">
+      <tag name="nelmio_alice.fixture_builder.expression_language.chainable_token_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.fixture_list_reference_token_parser" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Parser\TokenParser\Chainable\FixtureListReferenceTokenParser">
+      <tag name="nelmio_alice.fixture_builder.expression_language.chainable_token_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.fixture_method_reference_token_parser" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Parser\TokenParser\Chainable\FixtureMethodReferenceTokenParser">
+      <tag name="nelmio_alice.fixture_builder.expression_language.chainable_token_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.fixture_range_reference_token_parser" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Parser\TokenParser\Chainable\FixtureRangeReferenceTokenParser">
+      <tag name="nelmio_alice.fixture_builder.expression_language.chainable_token_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.method_reference_token_parser" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Parser\TokenParser\Chainable\MethodReferenceTokenParser">
+      <tag name="nelmio_alice.fixture_builder.expression_language.chainable_token_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.optional_token_parser" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Parser\TokenParser\Chainable\OptionalTokenParser">
+      <tag name="nelmio_alice.fixture_builder.expression_language.chainable_token_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.parameter_token_parser" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Parser\TokenParser\Chainable\ParameterTokenParser">
+      <tag name="nelmio_alice.fixture_builder.expression_language.chainable_token_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.property_reference_token_parser" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Parser\TokenParser\Chainable\PropertyReferenceTokenParser">
+      <tag name="nelmio_alice.fixture_builder.expression_language.chainable_token_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.variable_reference_token_parser" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Parser\TokenParser\Chainable\VariableReferenceTokenParser">
+      <tag name="nelmio_alice.fixture_builder.expression_language.chainable_token_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.simple_reference_token_parser" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Parser\TokenParser\Chainable\SimpleReferenceTokenParser">
+      <tag name="nelmio_alice.fixture_builder.expression_language.chainable_token_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.string_array_token_parser" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Parser\TokenParser\Chainable\StringArrayTokenParser">
+      <tag name="nelmio_alice.fixture_builder.expression_language.chainable_token_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.string_token_parser" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Parser\TokenParser\Chainable\StringTokenParser">
+      <tag name="nelmio_alice.fixture_builder.expression_language.chainable_token_parser"/>
+      <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.argument_escaper"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.tolerant_function_token_parser" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Parser\TokenParser\Chainable\TolerantFunctionTokenParser">
+      <tag name="nelmio_alice.fixture_builder.expression_language.chainable_token_parser"/>
+      <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.identity_token_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.identity_token_parser" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Parser\TokenParser\Chainable\IdentityTokenParser">
+      <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.function_token_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.function_token_parser" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Parser\TokenParser\Chainable\FunctionTokenParser">
+      <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.argument_escaper"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.variable_token_parser" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Parser\TokenParser\Chainable\VariableTokenParser">
+      <tag name="nelmio_alice.fixture_builder.expression_language.chainable_token_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.chainable.wildcard_reference_token_parser" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Parser\TokenParser\Chainable\WildcardReferenceTokenParser">
+      <tag name="nelmio_alice.fixture_builder.expression_language.chainable_token_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.lexer.empty_value_lexer" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Lexer\EmptyValueLexer">
+      <argument type="service" id="nelmio_alice.fixture_builder.expression_language.lexer.reference_escaper_lexer"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.lexer.reference_escaper_lexer" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Lexer\ReferenceEscaperLexer">
+      <argument type="service" id="nelmio_alice.fixture_builder.expression_language.lexer.globals_patterns_lexer"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.lexer.globals_patterns_lexer" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Lexer\GlobalPatternsLexer">
+      <argument type="service" id="nelmio_alice.fixture_builder.expression_language.lexer.function_lexer"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.lexer.function_lexer" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Lexer\FunctionLexer">
+      <argument type="service" id="nelmio_alice.fixture_builder.expression_language.lexer.string_then_reference_lexer"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.lexer.string_then_reference_lexer" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Lexer\StringThenReferenceLexer">
+      <argument type="service" id="nelmio_alice.fixture_builder.expression_language.lexer.sub_patterns_lexer"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.lexer.sub_patterns_lexer" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Lexer\SubPatternsLexer">
+      <argument type="service" id="nelmio_alice.fixture_builder.expression_language.lexer.reference_lexer"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.lexer.reference_lexer" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Lexer\ReferenceLexer"/>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.function_fixture_reference_parser" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Parser\FunctionFixtureReferenceParser">
+      <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.string_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.string_parser" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Parser\StringMergerParser">
+      <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.simple_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.simple_parser" class="Nelmio\Alice\FixtureBuilder\ExpressionLanguage\Parser\SimpleParser">
+      <argument type="service" id="nelmio_alice.fixture_builder.expression_language.lexer.empty_value_lexer"/>
+      <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.token_parser.registry"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.simple_fixture_bag_denormalizer" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\SimpleFixtureBagDenormalizer">
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.tolerant_denormalizer"/>
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.flag_parser.element"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.tolerant_denormalizer" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\TolerantFixtureDenormalizer">
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.registry_denormalizer"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.registry_denormalizer" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\FixtureDenormalizerRegistry">
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.flag_parser.element"/>
+      <argument type="collection">
+        <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.chainable.simple_list"/>
+        <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.chainable.reference_range_name"/>
+        <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.chainable.simple_range"/>
+        <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.chainable.simple"/>
+      </argument>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.chainable.null_list" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\Chainable\NullListNameDenormalizer"/>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.chainable.temporary_list" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\Chainable\CollectionDenormalizerWithTemporaryFixture">
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.chainable.null_list"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.chainable.simple_list" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\Chainable\SimpleCollectionDenormalizer">
+      <tag name="nelmio_alice.fixture_builder.denormalizer.chainable_fixture_denormalizer"/>
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.chainable.temporary_list"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.chainable.null_range" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\Chainable\NullRangeNameDenormalizer"/>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.chainable.reference_range_name" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\Chainable\ReferenceRangeNameDenormalizer">
+      <tag name="nelmio_alice.fixture_builder.denormalizer.chainable_fixture_denormalizer"/>
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.specs.simple"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.chainable.temporary_range" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\Chainable\CollectionDenormalizerWithTemporaryFixture">
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.chainable.null_range"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.chainable.simple_range" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\Chainable\SimpleCollectionDenormalizer">
+      <tag name="nelmio_alice.fixture_builder.denormalizer.chainable_fixture_denormalizer"/>
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.chainable.temporary_range"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.chainable.simple" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\Chainable\SimpleDenormalizer">
+      <tag name="nelmio_alice.fixture_builder.denormalizer.chainable_fixture_denormalizer"/>
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.specs.simple"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.specs.simple" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\SpecificationBagDenormalizer\SimpleSpecificationsDenormalizer">
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.constructor.legacy_constructor_denormalizer"/>
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.property.simple_denormalizer"/>
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.calls.simple_denormalizer"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.constructor.legacy_constructor_denormalizer" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\SpecificationBagDenormalizer\Constructor\LegacyConstructorDenormalizer">
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.constructor.constructor_denormalizer"/>
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.constructor.factory_denormalizer"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.constructor.factory_denormalizer" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\SpecificationBagDenormalizer\Constructor\FactoryDenormalizer">
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.calls.simple_denormalizer"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.constructor.constructor_denormalizer" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\SpecificationBagDenormalizer\Constructor\ConstructorDenormalizer">
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.arguments.simple_arguments_denormalizer"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.arguments.simple_arguments_denormalizer" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\SpecificationBagDenormalizer\Arguments\SimpleArgumentsDenormalizer">
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.value.unique_value_denormalizer"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.value.unique_value_denormalizer" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\SpecificationBagDenormalizer\Value\UniqueValueDenormalizer">
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.value.simple_value_denormalizer"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.value.simple_value_denormalizer" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\SpecificationBagDenormalizer\Value\SimpleValueDenormalizer">
+      <argument type="service" id="nelmio_alice.fixture_builder.expression_language.parser.function_fixture_reference_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.property.simple_denormalizer" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\SpecificationBagDenormalizer\Property\SimplePropertyDenormalizer">
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.value.unique_value_denormalizer"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.calls.simple_denormalizer" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\SpecificationBagDenormalizer\Calls\CallsWithFlagsDenormalizer">
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.calls.function_denormalizer"/>
+      <argument type="collection">
+        <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.calls.method_flag_handler.configurator_flag_handler"/>
+        <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.calls.method_flag_handler.optional_flag_handler"/>
+      </argument>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.calls.function_denormalizer" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\SpecificationBagDenormalizer\Calls\FunctionDenormalizer">
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.arguments.simple_arguments_denormalizer"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.calls.method_flag_handler.configurator_flag_handler" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\SpecificationBagDenormalizer\Calls\MethodFlagHandler\ConfiguratorFlagHandler">
+      <tag name="nelmio_alice.fixture_builder.denormalizer.chainable_method_flag_handler"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.calls.method_flag_handler.optional_flag_handler" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\SpecificationBagDenormalizer\Calls\MethodFlagHandler\OptionalFlagHandler">
+      <tag name="nelmio_alice.fixture_builder.denormalizer.chainable_method_flag_handler"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.flag_parser.element" class="Nelmio\Alice\FixtureBuilder\Denormalizer\FlagParser\ElementFlagParser">
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.flag_parser.registry"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.flag_parser.registry" class="Nelmio\Alice\FixtureBuilder\Denormalizer\FlagParser\FlagParserRegistry">
+      <argument type="collection">
+        <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.flag_parser.chainable.configurator"/>
+        <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.flag_parser.chainable.extend"/>
+        <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.flag_parser.chainable.optional"/>
+        <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.flag_parser.chainable.template"/>
+        <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.flag_parser.chainable.unique"/>
+      </argument>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.flag_parser.chainable.configurator" class="Nelmio\Alice\FixtureBuilder\Denormalizer\FlagParser\Chainable\ConfiguratorFlagParser">
+      <tag name="nelmio_alice.fixture_builder.denormalizer.chainable_flag_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.flag_parser.chainable.extend" class="Nelmio\Alice\FixtureBuilder\Denormalizer\FlagParser\Chainable\ExtendFlagParser">
+      <tag name="nelmio_alice.fixture_builder.denormalizer.chainable_flag_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.flag_parser.chainable.optional" class="Nelmio\Alice\FixtureBuilder\Denormalizer\FlagParser\Chainable\OptionalFlagParser">
+      <tag name="nelmio_alice.fixture_builder.denormalizer.chainable_flag_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.flag_parser.chainable.template" class="Nelmio\Alice\FixtureBuilder\Denormalizer\FlagParser\Chainable\TemplateFlagParser">
+      <tag name="nelmio_alice.fixture_builder.denormalizer.chainable_flag_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.flag_parser.chainable.unique" class="Nelmio\Alice\FixtureBuilder\Denormalizer\FlagParser\Chainable\UniqueFlagParser">
+      <tag name="nelmio_alice.fixture_builder.denormalizer.chainable_flag_parser"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.simple" class="Nelmio\Alice\FixtureBuilder\SimpleBuilder">
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.simple"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.simple" class="Nelmio\Alice\FixtureBuilder\Denormalizer\SimpleDenormalizer">
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.parameter.simple_parameter_bag_denormalizer"/>
+      <argument type="service" id="nelmio_alice.fixture_builder.denormalizer.fixture.simple_fixture_bag_denormalizer"/>
+    </service>
+    <service id="nelmio_alice.fixture_builder.denormalizer.parameter.simple_parameter_bag_denormalizer" class="Nelmio\Alice\FixtureBuilder\Denormalizer\Parameter\SimpleParameterBagDenormalizer"/>
+    <service id="nelmio_alice.data_loader.simple" class="Nelmio\Alice\Loader\SimpleDataLoader">
+      <argument type="service" id="nelmio_alice.fixture_builder.simple"/>
+      <argument type="service" id="nelmio_alice.generator.double_pass"/>
+    </service>
+    <service id="nelmio_alice.file_loader.simple" class="Nelmio\Alice\Loader\SimpleFileLoader">
+      <argument type="service" id="nelmio_alice.file_parser.runtime_cache"/>
+      <argument type="service" id="nelmio_alice.data_loader.simple"/>
+    </service>
+    <service id="nelmio_alice.files_loader.simple" class="Nelmio\Alice\Loader\SimpleFilesLoader">
+      <argument type="service" id="nelmio_alice.file_parser.runtime_cache"/>
+      <argument type="service" id="nelmio_alice.data_loader.simple"/>
+    </service>
+    <service id="nelmio_alice.file_parser.runtime_cache" class="Nelmio\Alice\Parser\RuntimeCacheParser">
+      <argument type="service" id="nelmio_alice.file_parser.registry"/>
+      <argument type="service" id="nelmio_alice.file_locator.default"/>
+      <argument type="service" id="nelmio_alice.file_parser.default_include_processor"/>
+    </service>
+    <service id="nelmio_alice.file_parser.symfony_yaml" class="Symfony\Component\Yaml\Parser" public="false"/>
+    <service id="nelmio_alice.file_parser.default_include_processor" class="Nelmio\Alice\Parser\IncludeProcessor\DefaultIncludeProcessor">
+      <argument type="service" id="nelmio_alice.file_locator.default"/>
+    </service>
+    <service id="nelmio_alice.file_parser.registry" class="Nelmio\Alice\Parser\ParserRegistry">
+      <argument type="collection">
+        <argument type="service" id="nelmio_alice.file_parser.chainable.yaml"/>
+        <argument type="service" id="nelmio_alice.file_parser.chainable.php"/>
+        <argument type="service" id="nelmio_alice.file_parser.chainable.json"/>
+      </argument>
+    </service>
+    <service id="nelmio_alice.file_parser.chainable.yaml" class="Nelmio\Alice\Parser\Chainable\YamlParser">
+      <tag name="nelmio_alice.file_parser"/>
+      <argument type="service" id="nelmio_alice.file_parser.symfony_yaml"/>
+    </service>
+    <service id="nelmio_alice.file_parser.chainable.php" class="Nelmio\Alice\Parser\Chainable\PhpParser">
+      <tag name="nelmio_alice.file_parser"/>
+    </service>
+    <service id="nelmio_alice.file_parser.chainable.json" class="Nelmio\Alice\Parser\Chainable\JsonParser">
+      <tag name="nelmio_alice.file_parser"/>
+    </service>
+    <service id="nelmio_alice.file_locator.default" class="Nelmio\Alice\FileLocator\DefaultFileLocator"/>
+    <service id="nelmio_alice.faker.generator" class="Faker\Generator">
+      <argument>en_US</argument>
+      <call method="seed">
+        <argument>1</argument>
+      </call>
+      <call method="addProvider">
+        <argument type="service" id="nelmio_alice.faker.provider.alice"/>
+      </call>
+      <factory class="Faker\Factory" method="create"/>
+    </service>
+    <service id="nelmio_alice.faker.provider.alice" class="Nelmio\Alice\Faker\Provider\AliceProvider">
+      <tag name="nelmio_alice.faker.provider"/>
+    </service>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\QuestionController" class="App\Controller\QuestionController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\QuestionController" class="App\Controller\QuestionController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\QuestionController" class="App\Controller\QuestionController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\QuestionRepository" class="App\Repository\QuestionRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\QuestionRepository" class="App\Repository\QuestionRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ResponseRepository" class="App\Repository\ResponseRepository" autowire="true" abstract="true"/>
@@ -4676,6 +5686,25 @@
         <argument>make:migration</argument>
       </call>
     </service>
+    <service id=".service_locator.jusAm.q" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="easyadmin.filter.type.array" type="service" id="easyadmin.filter.type.array"/>
+        <argument key="easyadmin.filter.type.boolean" type="service" id="easyadmin.filter.type.boolean"/>
+        <argument key="easyadmin.filter.type.choice" type="service" id="easyadmin.filter.type.choice"/>
+        <argument key="easyadmin.filter.type.comparison" type="service" id="easyadmin.filter.type.comparison"/>
+        <argument key="easyadmin.filter.type.date" type="service" id="easyadmin.filter.type.date"/>
+        <argument key="easyadmin.filter.type.dateinterval" type="service" id="easyadmin.filter.type.dateinterval"/>
+        <argument key="easyadmin.filter.type.datetime" type="service" id="easyadmin.filter.type.datetime"/>
+        <argument key="easyadmin.filter.type.decimal" type="service" id="easyadmin.filter.type.decimal"/>
+        <argument key="easyadmin.filter.type.entity" type="service" id="easyadmin.filter.type.entity"/>
+        <argument key="easyadmin.filter.type.float" type="service" id="easyadmin.filter.type.float"/>
+        <argument key="easyadmin.filter.type.integer" type="service" id="easyadmin.filter.type.integer"/>
+        <argument key="easyadmin.filter.type.text" type="service" id="easyadmin.filter.type.text"/>
+        <argument key="easyadmin.filter.type.textarea" type="service" id="easyadmin.filter.type.textarea"/>
+        <argument key="easyadmin.filter.type.time" type="service" id="easyadmin.filter.type.time"/>
+      </argument>
+    </service>
     <service id=".service_locator.9_yeNH1" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection"/>
@@ -4739,9 +5768,17 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.Fck5jT9" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.ZaHguDM" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminAutocompleteType" type="service" id="easyadmin.form.type.autocomplete"/>
+        <argument key="EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminBatchFormType" type="service" id="easyadmin.form.type.batch"/>
+        <argument key="EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminDividerType" type="service" id="easyadmin.form.type.divider"/>
+        <argument key="EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminFiltersFormType" type="service" id="easyadmin.form.type.filters"/>
+        <argument key="EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminFormType" type="service" id="easyadmin.form.type"/>
+        <argument key="EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminGroupType" type="service" id="easyadmin.form.type.group"/>
+        <argument key="EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminSectionType" type="service" id="easyadmin.form.type.section"/>
+        <argument key="EasyCorp\Bundle\EasyAdminBundle\Form\Type\FileUploadType" type="service" id="easyadmin.form.type.fileupload"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service" id="form.type.entity"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ChoiceType" type="service" id="form.type.choice"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\FileType" type="service" id="form.type.file"/>
@@ -5042,6 +6079,37 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.lSIKWsr" method="withContext"/>
     </service>
+    <service id=".service_locator.gGTGrJ1" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="doctrine" type="service" id="doctrine" on-invalid="ignore"/>
+        <argument key="easyadmin.autocomplete" type="service" id="easyadmin.autocomplete"/>
+        <argument key="easyadmin.config.manager" type="service" id="easyadmin.config.manager"/>
+        <argument key="easyadmin.filter.registry" type="service" id="easyadmin.filter.registry"/>
+        <argument key="easyadmin.paginator" type="service" id="easyadmin.paginator"/>
+        <argument key="easyadmin.property_accessor" type="service" id="property_accessor"/>
+        <argument key="easyadmin.query_builder" type="service" id="easyadmin.query_builder"/>
+        <argument key="easyadmin.security.authorization_checker" type="service" id="easyadmin.security.authorization_checker"/>
+        <argument key="event_dispatcher" type="service" id="debug.event_dispatcher"/>
+        <argument key="form.factory" type="service" id="form.factory" on-invalid="ignore"/>
+        <argument key="http_kernel" type="service" id="http_kernel" on-invalid="ignore"/>
+        <argument key="parameter_bag" type="service" id="parameter_bag" on-invalid="ignore"/>
+        <argument key="request_stack" type="service" id="request_stack" on-invalid="ignore"/>
+        <argument key="router" type="service" id="router.default" on-invalid="ignore"/>
+        <argument key="security.authorization_checker" type="service" id="security.authorization_checker" on-invalid="ignore"/>
+        <argument key="security.csrf.token_manager" type="service" id="security.csrf.token_manager" on-invalid="ignore"/>
+        <argument key="security.token_storage" type="service" id="security.token_storage" on-invalid="ignore"/>
+        <argument key="serializer" type="service" id="serializer" on-invalid="ignore"/>
+        <argument key="session" type="service" id="session" on-invalid="ignore"/>
+        <argument key="twig" type="service" id="twig" on-invalid="ignore"/>
+      </argument>
+    </service>
+    <service id=".service_locator.gGTGrJ1.EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController"/>
+      <argument>EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.gGTGrJ1" method="withContext"/>
+    </service>
     <service id="debug.validator.inner" class="Symfony\Component\Validator\Validator\ValidatorInterface" public="false">
       <factory service="validator.builder" method="getValidator"/>
     </service>
@@ -5089,7 +6157,7 @@
       <argument type="service" id=".service_locator.9_yeNH1"/>
     </service>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
-      <argument type="service" id=".service_locator.UvMMnf."/>
+      <argument type="service" id=".service_locator.JgKnBZT"/>
       <argument type="collection">
         <argument key="about">console.command.about</argument>
         <argument key="assets:install">console.command.assets_install</argument>
@@ -5143,6 +6211,7 @@
         <argument key="server:stop">web_server.command.server_stop</argument>
         <argument key="server:status">web_server.command.server_status</argument>
         <argument key="server:log">web_server.command.server_log</argument>
+        <argument key="doctrine:fixtures:load">doctrine.fixtures_load_command</argument>
         <argument key="make:auth">maker.auto_command.make_auth</argument>
         <argument key="make:command">maker.auto_command.make_command</argument>
         <argument key="make:controller">maker.auto_command.make_controller</argument>
@@ -5163,7 +6232,7 @@
         <argument key="make:migration">maker.auto_command.make_migration</argument>
       </argument>
     </service>
-    <service id=".service_locator.UvMMnf." class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.JgKnBZT" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="console.command.about" type="service" id="console.command.about"/>
@@ -5196,6 +6265,7 @@
         <argument key="doctrine.database_drop_command" type="service" id="doctrine.database_drop_command"/>
         <argument key="doctrine.database_import_command" type="service" id="doctrine.database_import_command"/>
         <argument key="doctrine.ensure_production_settings_command" type="service" id="doctrine.ensure_production_settings_command"/>
+        <argument key="doctrine.fixtures_load_command" type="service" id="doctrine.fixtures_load_command"/>
         <argument key="doctrine.generate_entities_command" type="service" id="doctrine.generate_entities_command"/>
         <argument key="doctrine.mapping_convert_command" type="service" id="doctrine.mapping_convert_command"/>
         <argument key="doctrine.mapping_import_command" type="service" id="doctrine.mapping_import_command"/>
@@ -5298,6 +6368,14 @@
     </service>
     <service id="cache.security_expression_language.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false">
       <argument>RwB5LrHJ4Z</argument>
+      <argument>0</argument>
+      <argument>%container.build_id%</argument>
+      <argument>/var/www/html/Spé/Parcour-Symfo-Kain/var/cache/dev/pools</argument>
+      <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+      <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
+    </service>
+    <service id="cache.easyadmin.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false">
+      <argument>Mgy9dxNtHG</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
       <argument>/var/www/html/Spé/Parcour-Symfo-Kain/var/cache/dev/pools</argument>
@@ -5438,6 +6516,46 @@
     <service id="Twig\Environment" alias="twig" public="false"/>
     <service id="logger" alias="monolog.logger"/>
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger" public="false"/>
+    <service id="easyadmin.property_accessor" alias="property_accessor" public="true"/>
+    <service id="EasyCorp\Bundle\EasyAdminBundle\Configuration\ConfigManager" alias="easyadmin.config.manager"/>
+    <service id="EasyCorp\Bundle\EasyAdminBundle\Search\QueryBuilder" alias="easyadmin.query_builder"/>
+    <service id="EasyCorp\Bundle\EasyAdminBundle\Search\Paginator" alias="easyadmin.paginator"/>
+    <service id="EasyCorp\Bundle\EasyAdminBundle\Search\Autocomplete" alias="easyadmin.autocomplete"/>
+    <service id="EasyCorp\Bundle\EasyAdminBundle\Security\AuthorizationChecker" alias="easyadmin.security.authorization_checker"/>
+    <service id="EasyCorp\Bundle\EasyAdminBundle\Form\Filter\FilterRegistry" alias="easyadmin.filter.registry" public="true"/>
+    <service id="nelmio_alice.generator.instantiator" alias="nelmio_alice.generator.instantiator.existing_instance"/>
+    <service id="nelmio_alice.generator.caller" alias="nelmio_alice.generator.caller.simple"/>
+    <service id="nelmio_alice.generator.resolver.parameter_bag" alias="nelmio_alice.generator.resolver.parameter_bag.remove_conflicting_parameters"/>
+    <service id="nelmio_alice.generator.resolver.fixture_bag" alias="nelmio_alice.generator.resolver.fixture_bag.template_bag"/>
+    <service id="nelmio_alice.generator.resolver.value" alias="nelmio_alice.generator.resolver.value.registry"/>
+    <service id="nelmio_alice.generator.resolver.value.property_accessor" alias="property_accessor"/>
+    <service id="nelmio_alice.generator.resolver.fixture_set" alias="nelmio_alice.generator.resolver.fixture_set.remove_conflicting_objects"/>
+    <service id="nelmio_alice.generator.hydrator" alias="nelmio_alice.generator.hydrator.simple"/>
+    <service id="nelmio_alice.generator.hydrator.property" alias="nelmio_alice.generator.hydrator.property.symfony_property_access"/>
+    <service id="nelmio_alice.generator" alias="nelmio_alice.generator.double_pass"/>
+    <service id="nelmio_alice.generator.object_generator" alias="nelmio_alice.generator.object_generator.complete"/>
+    <service id="nelmio_alice.property_accessor" alias="nelmio_alice.property_accessor.std"/>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser.token_parser" alias="nelmio_alice.fixture_builder.expression_language.parser.token_parser.registry"/>
+    <service id="nelmio_alice.fixture_builder.expression_language.lexer" alias="nelmio_alice.fixture_builder.expression_language.lexer.empty_value_lexer"/>
+    <service id="nelmio_alice.fixture_builder.expression_language.parser" alias="nelmio_alice.fixture_builder.expression_language.parser.function_fixture_reference_parser"/>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture_bag" alias="nelmio_alice.fixture_builder.denormalizer.fixture.simple_fixture_bag_denormalizer"/>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture" alias="nelmio_alice.fixture_builder.denormalizer.fixture.tolerant_denormalizer"/>
+    <service id="nelmio_alice.fixture_builder.denormalizer.specs" alias="nelmio_alice.fixture_builder.denormalizer.specs.simple"/>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.constructor" alias="nelmio_alice.fixture_builder.denormalizer.fixture.specs.constructor.legacy_constructor_denormalizer"/>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.arguments" alias="nelmio_alice.fixture_builder.denormalizer.fixture.specs.arguments.simple_arguments_denormalizer"/>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.value" alias="nelmio_alice.fixture_builder.denormalizer.fixture.specs.value.unique_value_denormalizer"/>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.property" alias="nelmio_alice.fixture_builder.denormalizer.fixture.specs.property.simple_denormalizer"/>
+    <service id="nelmio_alice.fixture_builder.denormalizer.fixture.specs.calls" alias="nelmio_alice.fixture_builder.denormalizer.fixture.specs.calls.simple_denormalizer"/>
+    <service id="nelmio_alice.fixture_builder.denormalizer.flag_parser" alias="nelmio_alice.fixture_builder.denormalizer.flag_parser.element"/>
+    <service id="nelmio_alice.fixture_builder" alias="nelmio_alice.fixture_builder.simple"/>
+    <service id="nelmio_alice.fixture_builder.denormalizer" alias="nelmio_alice.fixture_builder.denormalizer.simple"/>
+    <service id="nelmio_alice.fixture_builder.denormalizer.parameter_bag" alias="nelmio_alice.fixture_builder.denormalizer.parameter.simple_parameter_bag_denormalizer"/>
+    <service id="nelmio_alice.data_loader" alias="nelmio_alice.data_loader.simple" public="true"/>
+    <service id="nelmio_alice.file_loader" alias="nelmio_alice.file_loader.simple" public="true"/>
+    <service id="nelmio_alice.files_loader" alias="nelmio_alice.files_loader.simple" public="true"/>
+    <service id="nelmio_alice.file_parser" alias="nelmio_alice.file_parser.runtime_cache"/>
+    <service id="nelmio_alice.file_locator" alias="nelmio_alice.file_locator.default"/>
+    <service id="Faker\Generator" alias="nelmio_alice.faker.generator" public="true"/>
     <service id="argument_resolver.controller_locator" alias=".service_locator.9_yeNH1"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>

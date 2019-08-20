@@ -1,5 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <p>YO</p>
+    
+    {% for question in questions %}
+            <div>
+                <p>{{question.title}}</p>
+            </div>
+        {% endfor %}
+        
 {% endblock %}
