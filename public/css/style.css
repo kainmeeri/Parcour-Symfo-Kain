@@ -1,3 +1,107 @@
-body {
-    background-color: aliceblue;
+
+
+/* HEADER NAV */
+
+.nav {
+    height: 140px;
+    background-color: lightblue;
+}
+
+.nav_div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav .nav_div div img {
+    width: 100px;
+}
+
+
+.nav .nav_div button {
+    height: 30px;
+}
+
+/* HEADER TAG MENU + BUTTON ADD QUESTION */
+
+.sous_header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sous_header button {
+    height: 30px;
+}
+
+.tag_menu {
+    position: relative;
+    display: inline-block;
+}
+
+.tag_menu button {
+    background-color: rgb(102, 185, 212);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding:10px;
+    font-size: 1em;
+}
+.tag_menu button:hover {
+    background-color: rgb(102, 185, 212);
+}
+
+.tag_menu-link {
+    display: none;
+    background-color: rgb(102, 185, 212);
+    min-width: 50px;
+}
+
+.tag_menu-link a {
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+}
+
+.tag_menu:hover .tag_menu-link{
+    display: block;
+}
+
+/* CONTENT PAGE INDEX ACCUEIL */
+
+.content {
+    width: 70%;
+    background-color: lavender;
+    margin: auto;
+}
+
+.content_question {
+    width: 80%;
+    background-color: lightgreen;
+    margin: auto;
+}
+
+
+.content_question div {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+
+.content_question div p {
+    margin-top: 40px;
+}
+
+.question {
+    width: 70%;
+    height: 150px;
+    background-color: lightpink;
+}
+
+.question .content_question_title {
+    flex-wrap: wrap;
+}
+
+.question div img {
+    width: 60px;
+    height: 60px;
 }

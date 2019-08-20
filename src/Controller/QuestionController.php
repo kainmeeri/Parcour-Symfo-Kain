@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class QuestionController extends AbstractController
 {
     /**
-     * @Route("/", name="question_index")
+     * @Route("/", name="question_index", methods={"GET","POST"})
      */
     public function index()
     {
@@ -19,6 +19,19 @@ class QuestionController extends AbstractController
 
         return $this->render('question/index.html.twig', [
             'questions' => $questions
+        ]);
+        return $this->render('navigation/_main_nav.html.twig', [
+            'questions' => $questions
+        ]);
+    }
+
+    /**
+     * @Route("/question/{id}", name="question_show", methods={"GET"}, requirements={"id"="\d+"})
+     */
+    public function show($id)
+    {
+        return $this->render('question/index.html.twig', [
+           
         ]);
     }
 }

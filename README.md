@@ -22,7 +22,11 @@ Création de mes relations
 
 Création de mes fixtures
 
-**Note perso** : 
+Affichage de mes questions + user lié à la question sur ma page d'accueil
+
+Commencer l'intégration histoire d'y voir plus clair
+
+**Note perso** : Beaucoup d'appréhension au niveau des relations mais je m'en suis pas si mal sortie, pas mal avancer mais peu mieux faire (beaucoup de fatigue..)
 
 
 

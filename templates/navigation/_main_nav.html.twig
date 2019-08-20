@@ -1,0 +1,29 @@
+<nav class="nav">
+    <div class="nav_div">
+        <div>
+            <img src="{{ asset('img/faq-logo.jpg') }}" alt="">
+        </div>
+        <button>Connexion</button>
+    </div>
+</nav>
+<div class="sous_header">
+    <button>Poser une question</button>
+    <div class="tag_menu">
+        <button>Menu Principal</button>
+        {% for question in questions %}
+            <div class="tag_menu-link">
+
+            {% for tag in question.tags %}
+                <a href="#">{{ tag.name }}</a>
+            {% endfor %}
+            
+            </div>
+        {% endfor %} 
+    </div>
+</div>
+
+
+           
+   
+        
+

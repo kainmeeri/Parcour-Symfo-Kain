@@ -1,11 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    
-    {% for question in questions %}
+
+    <div class="content">
+        <div class="content_question">
+            {% for question in questions %}
             <div>
-                <p>{{question.title}}</p>
+                <p>0 réponses</p>
+                <div class="question">
+                    <div class="content_question_title">
+                        <h1>{{question.title}}</h1>
+                        <p>{{question.content}}</p>
+                    </div>
+                    <div>
+                        <img src="{{ asset('img/logo-user.png') }}" alt="">
+                        <p>{{question.user.username}}</p>
+                    </div>
+                </div>
             </div>
-        {% endfor %}
+            {% endfor %} 
+        </div>
+    </div>
         
 {% endblock %}
+
+           
