@@ -1,24 +1,25 @@
 <nav class="nav">
     <div class="nav_div">
         <div>
-            <img src="{{ asset('img/faq-logo.jpg') }}" alt="">
+            <a href="{{ path('question_index')}}"><img src="{{ asset('img/faq-logo.jpg') }}" alt=""></a>
         </div>
-        <button>Connexion</button>
+        <div class="button_nav">
+            <button>Inscription</button>
+            <button>Connexion</button>
+        </div>
     </div>
 </nav>
 <div class="sous_header">
-    <button>Poser une question</button>
+    <button> <a href="{{ path('question_new') }}">Poser une question</a></button>
     <div class="tag_menu">
-        <button>Menu Principal</button>
-        {% for question in questions %}
-            <div class="tag_menu-link">
-
-            {% for tag in question.tags %}
-                <a href="#">{{ tag.name }}</a>
-            {% endfor %}
-            
-            </div>
-        {% endfor %} 
+        <button>Tout les tags</button>
+        <div class="tag_menu-link">
+        
+        {% for tag in tag %}
+            <a href="{{ path('tag_index', {'id': tag.id })}}">{{ tag.name }}</a>
+        {% endfor %}
+        
+        </div>
     </div>
 </div>
 

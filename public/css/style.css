@@ -16,7 +16,6 @@
     width: 100px;
 }
 
-
 .nav .nav_div button {
     height: 30px;
 }
@@ -33,7 +32,8 @@
 }
 
 .tag_menu {
-    position: relative;
+    position: absolute;
+    right: 0;
     display: inline-block;
 }
 
@@ -77,31 +77,64 @@
 .content_question {
     width: 80%;
     background-color: lightgreen;
-    margin: auto;
+    margin: auto;flex-wrap: wrap;
 }
 
-
-.content_question div {
+.content-flex {
     display: flex;
     justify-content: center;
-    margin: 10px;
 }
 
-.content_question div p {
-    margin-top: 40px;
+.nb-response {
+    margin: 95px 10px
+}
+
+.border {
+    height: 100%;
+    width: 70%;
+    border: 1px solid black;
+    position: relative;
+    margin-top: 20px;
 }
 
 .question {
     width: 70%;
-    height: 150px;
+    height: 170px;
     background-color: lightpink;
+    display: flex;
+    margin: auto;
 }
 
-.question .content_question_title {
-    flex-wrap: wrap;
+.title-text h1 {
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    height: 20px;
+    max-width: 100%;
+    background-color: pink;
+    border: 1px solid red;
+    text-align: center;
+    font-size: 1.3em;
 }
 
-.question div img {
+.img {
+    display: flex;
+}
+
+.img img {
     width: 60px;
     height: 60px;
 }
+
+.tag {
+    display: flex;
+}
+
+.tag p {
+    border: 1px solid blue;
+    width: 80px;
+    height: 20px;
+    padding: 5px;
+    text-align: center;
+}
+

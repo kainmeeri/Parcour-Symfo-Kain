@@ -8,7 +8,7 @@ App\Entity\Question:
    question{1..13}:
        title: '<sentence()>'
        content: '<realText()>'
-       tags: '5x @tag*' # j'associe 5 genres (5X) au aléatoire (@tag*)
+       tags: '3x @tag*' # j'associe 5 genres (5X) au aléatoire (@tag*)
        user: '@user*'
 
 

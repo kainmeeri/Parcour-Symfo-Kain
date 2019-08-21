@@ -19,32 +19,20 @@ class QuestionRepository extends ServiceEntityRepository
         parent::__construct($registry, Question::class);
     }
 
-    // /**
-    //  * @return Question[] Returns an array of Question objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * EXO 1 : Récupérer la liste les films par ordre alphabétique
+     * Méthode en DQL (Doctrine Query Language)
+     * 
+     *  @return Question[] Returns an array of Movie objects
+     */
+    public function findAllByOrder()
     {
-        return $this->createQueryBuilder('q')
-            ->andWhere('q.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('q.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return $this->getEntityManager()
+            ->createQuery('
+                SELECT m 
+                FROM App\Entity\QUESTION m 
+                ORDER BY m.createdAt DESC
+            ')
+            ->getResult();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Question
-    {
-        return $this->createQueryBuilder('q')
-            ->andWhere('q.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

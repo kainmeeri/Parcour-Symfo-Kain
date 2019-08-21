@@ -1,5 +1,5 @@
 # Parcour-Symfo-Kain
-Parcours de la spé symfony, by Kain
+Parcours de la spé symfony, by Kain  => https://github.com/O-clock-Sirius/symfo-faq-oclock-kainmeeri
 
 ## Jour 1
 
@@ -27,6 +27,22 @@ Affichage de mes questions + user lié à la question sur ma page d'accueil
 Commencer l'intégration histoire d'y voir plus clair
 
 **Note perso** : Beaucoup d'appréhension au niveau des relations mais je m'en suis pas si mal sortie, pas mal avancer mais peu mieux faire (beaucoup de fatigue..)
+
+
+## Jour 3
+
+Update du Trello 
+
+Update d'intégration
+
+Menue déroulant contenant mes tags, rendu ça dynamique si je clique sur le tag "PHP" ça me renvoie sur /question/tag/id avec toute les questions concerner.
+
+Création request Custom pour afficher mes questions dans le bonne ordre.
+
+Ajout d'un formulaire qui add une question
+
+**Note perso** : Grosse journée avec pas mal de bug, mais grace au docs (et aussi quelque camarades) j'ai pu m'en sortir ! (encore plus fatiguer qu'hier..)
+
 
 
 

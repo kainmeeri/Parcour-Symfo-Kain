@@ -4,7 +4,7 @@
 
 <div class="content">
     <div class="content_question">
-        {% for question in questions %}
+        {% for question in tags.questions %}
         <div class="content-flex">
             <p class="nb-response">0 réponses</p>
             <div class="border">
@@ -32,7 +32,5 @@
         {% endfor %} 
     </div>
 </div>
-        
-{% endblock %}
 
-           
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    <h1>{{questions.title}}</h1>
+    <p>le {{questions.createdAt|localizeddate('none', 'none', 'FR_fr',null,'d MMMM yyyy')}}, par un User</p>
+    <p>{{questions.content}}</p>
+
+{% endblock %}
+
+           

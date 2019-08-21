@@ -65,6 +65,7 @@ class User
         $this->responses = new ArrayCollection();
         $this->createdAt = new DateTime();
         $this->updatedAt = new DateTime();
+        $this->username = null;
     }
 
     public function getId(): ?int
@@ -204,5 +205,10 @@ class User
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->username;
     }
 }
