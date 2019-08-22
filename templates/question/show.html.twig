@@ -2,9 +2,23 @@
 
 {% block content %}
 
-    <h1>{{questions.title}}</h1>
-    <p>le {{questions.createdAt|localizeddate('none', 'none', 'FR_fr',null,'d MMMM yyyy')}}, par un User</p>
-    <p>{{questions.content}}</p>
+    <div class="content">
+        <div class="content-response">
+            <div class="flex-title-tag">
+                <div class="title-date">
+                    <h1>{{questions.title}}</h1>
+                    <p>le {{questions.createdAt|localizeddate('none', 'none', 'FR_fr',null,'d MMMM yyyy')}}, par un User</p>
+                </div>
+                <div class="tag-response">
+                    <p>Tag</p>
+                </div>
+            </div>
+            <div class="content-question_response">
+                <p>{{questions.content}}</p>
+            </div>
+            <p class="nb-response-question">0 réponses</p>
+        </div>
+    </div>
 
 {% endblock %}
 

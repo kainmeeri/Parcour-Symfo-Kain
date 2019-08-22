@@ -5,14 +5,14 @@
         </div>
         <div class="button_nav">
             <button>Inscription</button>
-            <button>Connexion</button>
+            <button><a href="{{ path('app_login') }}">Connexion</a> </button>
         </div>
     </div>
 </nav>
 <div class="sous_header">
-    <button> <a href="{{ path('question_new') }}">Poser une question</a></button>
+    <button class="button-question"> <a href="{{ path('question_new') }}">Poser une question</a></button>
     <div class="tag_menu">
-        <button>Tout les tags</button>
+        <button class="button-tags">Tout les tags</button>
         <div class="tag_menu-link">
         
         {% for tag in tag %}

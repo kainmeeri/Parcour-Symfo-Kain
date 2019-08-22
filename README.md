@@ -1,6 +1,7 @@
 # Parcour-Symfo-Kain
 Parcours de la spé symfony, by Kain  => https://github.com/O-clock-Sirius/symfo-faq-oclock-kainmeeri
 
+
 ## Jour 1
 
 Création d'un Trello pour "essayer" de m'organiser => https://trello.com/b/YJD6zNnP
@@ -42,6 +43,27 @@ Création request Custom pour afficher mes questions dans le bonne ordre.
 Ajout d'un formulaire qui add une question
 
 **Note perso** : Grosse journée avec pas mal de bug, mais grace au docs (et aussi quelque camarades) j'ai pu m'en sortir ! (encore plus fatiguer qu'hier..)
+
+
+## Jour 4
+
+Gros update d'intégration (qui prend du temps)
+
+Reglage de quelque bug concernant l'affichage de mes tags dans certaine pages
+
+Ajout d'un système de login (fonctionnel)
+
+**Note perso** : Gros bug avec ma bdd, mais merci Claire, sinon ça avance doucement, à prévoir pour demain un fomulaire d'inscription fonctionnel  + fioriture.
+
+
+
+### Problème à regler
+
+Dans la liste des question d'un tag (question/tag/id) trié par ordre DESC
+
+Pour afficher mon menue déroulant des tags qui ce situe sur ma navbar (header) j'ai du copier ce code =>  **$tagsNav = $repository->findAll()**,
+sur tout mes controller et leurs méthod
+
 
 
 

@@ -1,13 +1,42 @@
+# note: attention a l'indentation , si nok : "unreconized option"
 security:
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders: #verifie & encode les mot de passe sur ce format 
+        App\Entity\User:
+            algorithm: auto
+
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers 
+    #cette section définit qui fournit les utilisateurs , notre cas nous souhaiterons avoir des données de la BDD
     providers:
-        in_memory: { memory: null }
+        sirius_super_provider:
+            entity:
+                class: App\Entity\User
+                property: username #note je peux specifier le champs que je souhaite pour m'authentifier
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
+        # cette section firewalls / main est destiné a notre application
+        # elle definie si notre utilisateur peux etre anonyme ou non 
+        # et surtout elle va definir par quel biais je peux me connecter a mon application ( form ou HTTP basic)
         main:
             anonymous: true
+
+            # Note : http basic et form ne sont pas compatibles
+            # ici il faudra activer le systeme d'authentification qui va se declencher HTTP basic OU form (BP)
+            # http_basic: true #activation du systeme HTTP basic
+            provider: sirius_super_provider # je relie le systeme choisit avec le fournisseur de donnée
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+            logout:
+                path: app_logout
+                target: / #permet de definir la route vers laquelle rediriger lors de la deconnexio,
+                # invalidate_session: true #invalide la session (pas obligatoire) - @todo verifier si la session est completement supprimer ou juste partiellement(<- comportement par defaut)
+                # where to redirect after logout
+                # target: app_any_route
+
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

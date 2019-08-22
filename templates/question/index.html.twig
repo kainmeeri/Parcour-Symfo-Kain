@@ -10,14 +10,14 @@
             <div class="border">
                 <a href="{{ path('question_show', {'id': question.id })}}">
                     <div class="question">
-                        <div class="title-text">
+                        <div class="content-text-title">
                             <h1>{{question.title}}</h1>
                             <p>{{question.content}}</p>
                         </div>
-                        <div class="flex_img-tag">
+                        <div class="content-img-tag">
                             <div class="img">
                                 <img src="{{ asset('img/logo-user.png') }}" alt="">
-                                {# <p>{{question.user.username}}</p> #}
+                                <p>UserName</p>
                             </div>
                             <div class="tag">
                                 {% for tag in question.tags %}

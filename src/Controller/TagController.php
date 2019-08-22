@@ -18,7 +18,6 @@ class TagController extends AbstractController
     public function index(Tag $tags, $id)
     {
         $repository = $this->getDoctrine()->getRepository(Question::class);
-
         $questions = $repository->find($id);
 
         $repository = $this->getDoctrine()->getRepository(Tag::class);

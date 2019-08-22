@@ -18,6 +18,8 @@ return [
     'question_index' => [[], ['_controller' => 'App\\Controller\\QuestionController::index'], [], [['text', '/']], [], []],
     'question_show' => [['id'], ['_controller' => 'App\\Controller\\QuestionController::show'], ['id' => '\\d+'], [['variable', '/', '\\d+', 'id', true], ['text', '/question']], [], []],
     'question_new' => [[], ['_controller' => 'App\\Controller\\QuestionController::new'], [], [['text', '/new/question']], [], []],
+    'app_login' => [[], ['_controller' => 'App\\Controller\\SecurityController::login'], [], [['text', '/login']], [], []],
+    'app_logout' => [[], ['_controller' => 'App\\Controller\\SecurityController::logout'], [], [['text', '/logout']], [], []],
     'tag_index' => [['id'], ['_controller' => 'App\\Controller\\TagController::index'], ['id' => '\\d+'], [['variable', '/', '\\d+', 'id', true], ['text', '/question/tag']], [], []],
     'easyadmin' => [[], ['_controller' => 'EasyCorp\\Bundle\\EasyAdminBundle\\Controller\\EasyAdminController::indexAction'], [], [['text', '/admin/']], [], []],
 ];

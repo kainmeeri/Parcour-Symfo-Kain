@@ -30,7 +30,7 @@ class QuestionRepository extends ServiceEntityRepository
         return $this->getEntityManager()
             ->createQuery('
                 SELECT m 
-                FROM App\Entity\QUESTION m 
+                FROM App\Entity\Question m 
                 ORDER BY m.createdAt DESC
             ')
             ->getResult();

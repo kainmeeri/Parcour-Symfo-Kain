@@ -6,11 +6,13 @@ use \DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
+ * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -65,7 +67,12 @@ class User
         $this->responses = new ArrayCollection();
         $this->createdAt = new DateTime();
         $this->updatedAt = new DateTime();
-        $this->username = null;
+    }
+    public function getSalt()
+    {
+        // you *may* need a real salt depending on your encoder
+        // see section on salt below
+        return null;
     }
 
     public function getId(): ?int
@@ -95,6 +102,48 @@ class User
         $this->password = $password;
 
         return $this;
+    }
+
+    /*
+     ATTENTION 
+
+     cette fonction est necessaire et doit obligatoirement avoir ce retour (tableau de droits) quelque soit les futures relations que j'aurai avec une potentielle table
+
+     cette fonction n'est pas dédiés aux relations doctrine mais au fonctionnement pur de la securité interne a symfo
+    
+     */
+    public function getRoles() // dédié au composant security
+    {
+        // ici pour mon vrai role soit utilisé je doit le retourner dans le tableau de role prevu a cet effet
+        return [$this->getRole()->getCode()]; // ex ROLE_ADMIN_SIRIUS
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize([
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ]);
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+        ) = unserialize($serialized, ['allowed_classes' => false]);
     }
 
     public function getEmail(): ?string

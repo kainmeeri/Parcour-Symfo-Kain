@@ -58,6 +58,8 @@ class QuestionController extends AbstractController
 
          $repository = $this->getDoctrine()->getRepository(Tag::class);
          $tags = $repository->findAll();
+         $tagsNav = $repository->findAll();
+
  
          if ($form->isSubmitted() && $form->isValid()) {
              $entityManager = $this->getDoctrine()->getManager();
@@ -70,7 +72,9 @@ class QuestionController extends AbstractController
          return $this->render('question/form.html.twig', [
              'questions' => $question,
              'form' => $form->createView(),
-             'tags' => $tags
+             'tags' => $tags,
+             'tag' => $tagsNav
+             
          ]);
      }
 }
