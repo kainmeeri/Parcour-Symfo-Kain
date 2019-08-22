@@ -57,12 +57,13 @@ Ajout d'un système de login (fonctionnel)
 
 
 
+
 ### Problème à regler
 
 Dans la liste des question d'un tag (question/tag/id) trié par ordre DESC
 
 Pour afficher mon menue déroulant des tags qui ce situe sur ma navbar (header) j'ai du copier ce code =>  **$tagsNav = $repository->findAll()**,
-sur tout mes controller et leurs méthod
+sur tout mes controller et leurs méthodes
 
 
 
