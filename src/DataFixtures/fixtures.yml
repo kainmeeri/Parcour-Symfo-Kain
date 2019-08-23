@@ -13,7 +13,7 @@ App\Entity\Question:
 
 
 App\Entity\Response:
-    response{1..20}:
+    response{1..50}:
         content: '<realText()>'
         question: '@question*'
         user: '@user*'

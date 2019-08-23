@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+{{ form_start(formUser) }}
+    {{ form_widget(formUser) }}
+    <button class="btn">{{ button_label|default("Je m'inscris") }}</button>
+{{ form_end(formUser) }}
+        
+{% endblock %}
+
+           

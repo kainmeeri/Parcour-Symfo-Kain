@@ -249,11 +249,40 @@ html {
 
 .nb-response-question{
     margin-top: 30px;
+    margin-bottom: 30px;
     border-bottom: 1px solid;
     font-size: 0.9em;
     padding-bottom: 5px;
 }
 
+/* CONTENT PAGE SHOW RESPONSE */
+
+.flex-responses {
+    display: flex;
+    width: 90%;
+    margin: auto;
+}
+
+.response-text {
+    margin-bottom: 40px;
+}
+
+.response-date_user {
+    text-align: end;
+    border-bottom: 1px solid;
+    padding-bottom: 10px;
+    font-size: 0.9em;
+}
+
+.img-responses {
+    margin-bottom: 20px;
+    margin-left: 10px;
+}
+
+.img-responses img {
+    width: 60px;
+    height: 60px;
+}
 
 
 

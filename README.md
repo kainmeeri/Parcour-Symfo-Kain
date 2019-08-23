@@ -12,8 +12,7 @@ Création d'un wireframe page d'accueil dans 'doc' ou => https://urlz.fr/alV0 + 
 
 Création de ma bdd + mes entity's via make:entity
 
-**Note perso** : Pour le moment ça va ! préparation du trello, mcd, wireframe, bdd, entity, controlleur et préparation à l'intégration + favicon, en espérent que mon mcd sois bon.
-
+**Note perso** : Pour le moment ça va ! préparation du trello, mcd, wireframe, bdd, entity, controlleur et préparation à l'intégration + favicon.
 
 ## Jour 2
 
@@ -57,13 +56,31 @@ Ajout d'un système de login (fonctionnel)
 
 
 
+## Jour 5
+
+Update Trello
+
+Réalise que mon intégration est moche et que tout est à refaire (même les wireframes)
+
+Reglage de quelque bug en tout genre
+
+Ajout d'un form d'inscription (problème avec role_user)
+
+Afficher mes responses + répondre à une question (tout est fonctionnel)
+
+Amélioration de l'UX sur ma navbar + attribution des roles/access dans security.yml
+
+Ajout d'une page profile seulement vitrine aucune modif n'est encore disponible
+
+**Note perso** : Grosse avancé aujourd'hui, plutot content, juste le soucis des ROLE qui rend fou.. à prévoir pour demain ou dimanche, GROSSE update de l'inté ou amélioration                    de la page profile
+
+
 
 ### Problème à regler
 
 Dans la liste des question d'un tag (question/tag/id) trié par ordre DESC
 
-Pour afficher mon menue déroulant des tags qui ce situe sur ma navbar (header) j'ai du copier ce code =>  **$tagsNav = $repository->findAll()**,
-sur tout mes controller et leurs méthodes
+Attribué un ROLE_USER à chaque inscription par défault
 
 
 

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+        <p>{{app.user.username}}</p>
+        <p>{{app.user.password}}</p>
+        <p>{{app.user.email}}</p>
+        <p>{{app.user.createdAt|localizeddate('none', 'none', 'FR_fr',null,'d MMMM yyyy')}}<p>
+        <p>{{app.user.role}}</p>
+
+{% endblock %}
+
+           

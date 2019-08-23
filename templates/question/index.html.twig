@@ -17,7 +17,7 @@
                         <div class="content-img-tag">
                             <div class="img">
                                 <img src="{{ asset('img/logo-user.png') }}" alt="">
-                                <p>UserName</p>
+                                <p>{{question.user.username}}</p>
                             </div>
                             <div class="tag">
                                 {% for tag in question.tags %}

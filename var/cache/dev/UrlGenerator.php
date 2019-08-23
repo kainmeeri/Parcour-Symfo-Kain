@@ -16,10 +16,12 @@ return [
     '_profiler_exception' => [['token'], ['_controller' => 'web_profiler.controller.exception::showAction'], [], [['text', '/exception'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], []],
     '_profiler_exception_css' => [['token'], ['_controller' => 'web_profiler.controller.exception::cssAction'], [], [['text', '/exception.css'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], []],
     'question_index' => [[], ['_controller' => 'App\\Controller\\QuestionController::index'], [], [['text', '/']], [], []],
-    'question_show' => [['id'], ['_controller' => 'App\\Controller\\QuestionController::show'], ['id' => '\\d+'], [['variable', '/', '\\d+', 'id', true], ['text', '/question']], [], []],
+    'question_show' => [['id'], ['_controller' => 'App\\Controller\\QuestionController::show'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/question']], [], []],
     'question_new' => [[], ['_controller' => 'App\\Controller\\QuestionController::new'], [], [['text', '/new/question']], [], []],
     'app_login' => [[], ['_controller' => 'App\\Controller\\SecurityController::login'], [], [['text', '/login']], [], []],
     'app_logout' => [[], ['_controller' => 'App\\Controller\\SecurityController::logout'], [], [['text', '/logout']], [], []],
     'tag_index' => [['id'], ['_controller' => 'App\\Controller\\TagController::index'], ['id' => '\\d+'], [['variable', '/', '\\d+', 'id', true], ['text', '/question/tag']], [], []],
+    'user_index' => [[], ['_controller' => 'App\\Controller\\UserController::index'], [], [['text', '/account']], [], []],
+    'app_signup' => [[], ['_controller' => 'App\\Controller\\UserController::new'], [], [['text', '/signup']], [], []],
     'easyadmin' => [[], ['_controller' => 'EasyCorp\\Bundle\\EasyAdminBundle\\Controller\\EasyAdminController::indexAction'], [], [['text', '/admin/']], [], []],
 ];
