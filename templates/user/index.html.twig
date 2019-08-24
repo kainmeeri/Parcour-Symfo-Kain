@@ -2,12 +2,34 @@
 
 {% block content %}
 
-        <p>{{app.user.username}}</p>
-        <p>{{app.user.password}}</p>
-        <p>{{app.user.email}}</p>
-        <p>{{app.user.createdAt|localizeddate('none', 'none', 'FR_fr',null,'d MMMM yyyy')}}<p>
-        <p>{{app.user.role}}</p>
+        <div>
+                <p>Nom : {{app.user.username}}</p>
+                <p>Adresse e-mail : {{app.user.email}}</p>
+                <a href="">Modifier mon profil</a>
+        </div>
+        <div>
+        <div>
+                <p>Crée le : {{app.user.createdAt|localizeddate('none', 'none', 'FR_fr',null,'d MMMM yyyy')}}<p>
+        </div>
+        <div>   
+                <p>Role : {{app.user.role}}</p>
+        </div>
+        <div>
+                <p>Question posé :</p>
 
+                {% for questionsUser in app.user.questions %}
+                        <p>{{ questionsUser }}</p><br>
+                {% endfor %}
+        </div> 
+        <div>
+                <p>Réponses donner :</p>
+
+                {% for responsesUser in app.user.responses %}
+                        <p>{{ responsesUser }}</p><br>
+                {% endfor %}
+        </div>
+       
+       
 {% endblock %}
 
            

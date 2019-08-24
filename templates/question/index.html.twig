@@ -3,6 +3,13 @@
 {% block content %}
 
 <div class="content">
+    <div class="tags-content">  
+        {% for tag in tag %}
+            <div class="tags">
+                <a href="{{ path('tag_index', {'id': tag.id })}}">{{ tag.name }}</a>
+            </div>
+        {% endfor %}
+    </div>
     <div class="content_question">
         {% for question in questions %}
         <div class="content-flex">

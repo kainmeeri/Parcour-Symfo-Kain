@@ -23,5 +23,6 @@ return [
     'tag_index' => [['id'], ['_controller' => 'App\\Controller\\TagController::index'], ['id' => '\\d+'], [['variable', '/', '\\d+', 'id', true], ['text', '/question/tag']], [], []],
     'user_index' => [[], ['_controller' => 'App\\Controller\\UserController::index'], [], [['text', '/account']], [], []],
     'app_signup' => [[], ['_controller' => 'App\\Controller\\UserController::new'], [], [['text', '/signup']], [], []],
+    'user_edit' => [[], ['_controller' => 'App\\Controller\\UserController::edit'], [], [['text', '/account/edit']], [], []],
     'easyadmin' => [[], ['_controller' => 'EasyCorp\\Bundle\\EasyAdminBundle\\Controller\\EasyAdminController::indexAction'], [], [['text', '/admin/']], [], []],
 ];

@@ -39,11 +39,6 @@ class QuestionController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Question::class);
         $questions = $repository->find($id);
 
-        $repository = $this->getDoctrine()->getRepository(Tag::class);
-        $tagsNav = $repository->findAll();
-
-
-
         $response = new Response();
         $form = $this->createForm(AddResponseType::class, $response);
         $form->handleRequest($request);
@@ -65,7 +60,6 @@ class QuestionController extends AbstractController
         return $this->render('question/show.html.twig', [
             'questions' => $questions,
             'form' => $form->createView(),
-            'tag' => $tagsNav
         ]);
     }
 
@@ -79,14 +73,11 @@ class QuestionController extends AbstractController
          $form = $this->createForm(QuestionType::class, $question);
          $form->handleRequest($request);
 
-        
          $user = $this->getUser();
          
          $repository = $this->getDoctrine()->getRepository(Tag::class);
          $tags = $repository->findAll();
-         $tagsNav = $repository->findAll();
-
- 
+         
          if ($form->isSubmitted() && $form->isValid()) {
              $entityManager = $this->getDoctrine()->getManager();
              $question->setUser($user);
@@ -99,9 +90,7 @@ class QuestionController extends AbstractController
          return $this->render('question/form.html.twig', [
              'questions' => $question,
              'form' => $form->createView(),
-             'tags' => $tags,
-             'tag' => $tagsNav
-             
+             'tags' => $tags
          ]);
      }
 }

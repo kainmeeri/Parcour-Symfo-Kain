@@ -75,6 +75,18 @@ Ajout d'une page profile seulement vitrine aucune modif n'est encore disponible
 **Note perso** : Grosse avancé aujourd'hui, plutot content, juste le soucis des ROLE qui rend fou.. à prévoir pour demain ou dimanche, GROSSE update de l'inté ou amélioration                    de la page profile
 
 
+## Jour 6
+
+Update Trello
+
+Changement total d'intégration
+
+Ajout des questions/réponses dans la page profile
+
+Réglage du ROLE_USER par défault
+
+**Note perso** : Intégration plus lisible, réglages des quelque bug, bref c'est samedi, bon week-end.
+
 
 ### Problème à regler
 

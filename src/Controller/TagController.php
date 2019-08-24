@@ -22,11 +22,13 @@ class TagController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Tag::class);
         $tagNav = $repository->findAll();
+        $tagName = $repository->find($id);
         
         return $this->render('tag/index.html.twig', [
             'questions' => $questions,
             'tags' => $tags,
-            'tag' => $tagNav
+            'tag' => $tagNav,
+            'tagName' => $tagName
         ]);
     }
 }

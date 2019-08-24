@@ -8,8 +8,8 @@ html {
 /* HEADER NAV */
 
 .nav {
-    height: 140px;
-    background-color: lightsteelblue;
+    height: 50px;
+    background-color: rgb(31, 28, 28);
 }
 
 .nav_div {
@@ -17,23 +17,22 @@ html {
     justify-content: space-between;
 }
 
-.nav .nav_div div img {
-    width: 100px;
-    margin: 20px;
+.nav .nav_div div a {
+    text-decoration: none;
+    color: white;
 }
 
-.nav .nav_div button {
-    height: 30px;
-    margin: 5px;
-    border: none;
-    border-radius: 4px;
-    font-size: 1.1em;
-    color: white;
-    background-color: lightslategray;
+.nav .nav_div div a h1 {
+    width: 50px;
+    margin: 5px 20px;
+    font-weight: bold;
+    margin: 9px;
+    font-size: 2em;
 }
 
 .button_nav {
-    margin: 10px;
+    display: flex;
+    margin-right: 15%;
 }
 
 .button_nav a {
@@ -41,84 +40,122 @@ html {
     color: white;
 }
 
+.nav .nav_div button {
+    
+    border: none;
+    font-size: 1em;
+    color: white;
+    background-color: rgb(31, 28, 28);
+    height: 50px;
+}
+.nav .nav_div button:hover {
+    background-color:  rgb(59, 59, 59);
+}
+
+.nav .nav_div .button-inscri {
+    
+    border: none;
+    font-size: 1em;
+    font-weight: bold;
+    background-color: rgb(0, 0, 0);
+    height: 50px;
+}
+
+.form-navbar {
+    margin-right: 15px;
+}
+
+.input-form-navbar {
+    border: none;
+    height: 28px;
+    width: 300px;
+    border-radius: 4px;
+    padding: 5px;
+}
+
 
 /* HEADER TAG MENU + BUTTON ADD QUESTION */
 
-.sous_header {
-    display: flex;
-    justify-content: space-between;
-}
 
 .sous_header button {
     height: 30px;
 }
 
 .button-question {
-    margin: 15px;
+    margin: 8px;
     border: none;
-    border-radius: 4px;
-    font-size: 1em;
+    border-radius: 2px;
+    font-size: 1.1em;
+    font-weight: bold;
+    background-color: rgb(31, 28, 28);
+    display: flex;
+    padding-bottom: 40px;
+}
+.button-question:hover {
+    background-color: rgb(77, 77, 77);
+}
+
+.button-question p {
+    font-size: 1.5em;
+    color: white;
+    font-weight: normal;
+    line-height: 37px;
+    margin-right: 3px;
 }
 
 .button-question a {
     text-decoration: none;
-    color: black;
-}
-
-.button-question a:hover {
-    color: black;
-}
-
-
-.tag_menu {
-    position: absolute;
-    right: 0;
-    display: inline-block;
-    margin-right: 60px;
-}
-
-
-.tag_menu button {
-    background-color: lightslategray;
     color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 1em;
-    border-radius: 0 0 2px 2px ;
-}
-.tag_menu button:hover {
-    background-color: lightslategray;
+    margin-top: 9px;
 }
 
-.tag_menu-link {
-    display: none;
-    background-color: lightslategray;
-    min-width: 50px;
-}
-
-.tag_menu-link a {
-    color: white;
-    padding: 10px;
-    text-decoration: none;
-    display: block;
-    text-align: center;
-}
-.tag_menu-link a:hover {
-    background-color: lightgray;
-}
-
-.tag_menu:hover .tag_menu-link{
-    display: block;
-}
 
 /* CONTENT PAGE INDEX ACCUEIL */
 
 .content {
     width: 70%;
-    background-color: lightgray;
+    background-color: black;
     margin: auto;
     border-radius: 3px;
     margin-bottom: 150px;
+    margin-top: 30px;
+}
+
+
+.tags-content {
+    padding-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+.tags {
+    background-color: rgb(31, 28, 28);
+    height: 19px;
+    font-size: 1.1em;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.tags a {
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+}
+
+.tag-name-content {
+    margin-top: 35px;
+}
+
+.tag-name-content p {
+    font-size: 1.5em;
+    background-color: black;
+    color: white;
+    max-width: max-content;
+    padding: 4px;
+    border-radius: 3px;
+    margin: auto;
 }
 
 .content_question {
@@ -138,8 +175,8 @@ html {
 
 .border {
     height: 100%;
-    width: 70%;
-    border: 2px solid lightslategray;
+    width: 65%;
+    border: 1px solid white;
     border-radius: 3px 30px 3px 3px;
     position: relative;
     margin-top: 50px;
@@ -148,7 +185,7 @@ html {
 
 .border a {
     text-decoration: none;
-    color: black;
+    color: white;
 }
 
 .question {
@@ -157,16 +194,18 @@ html {
 }
 
 .content-text-title {
-    width: 65%;
+    width: 50%;
+    margin-right: 80px;
 }
 
 .content-text-title h1 {
     position: absolute;
-    top: -10px;
+    top: -12px;
     left: 20px;
     height: 20px;
     max-width: 100%;
-    background-color: lightgray;
+    background-color: black;
+    color: white;
     text-align: center;
     font-size: 1.3em;
     padding: 0 10px 0 10px 
@@ -213,7 +252,7 @@ html {
     height: 20px;
     padding: 8px;
     text-align: center;
-    margin: 3px;
+    margin: 1px;
 }
 
 
@@ -228,31 +267,35 @@ html {
 .flex-title-tag {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid white;
     padding-bottom: 8px;
 }
 
 .title-date h1 {
-    font-size: 1.4em
+    font-size: 1.4em;
+    color: white;
 }
 .title-date p {
     font-size: 0.8em;
     margin-top: 5px;
     margin-left: 8px;
+    color: white;
 }
 
 .content-question_response {
     margin: 30px 0 0 5px;
     width: 70%;
     overflow-wrap: break-word;
+    color: white;
 }
 
 .nb-response-question{
     margin-top: 30px;
     margin-bottom: 30px;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid white;
     font-size: 0.9em;
     padding-bottom: 5px;
+    
 }
 
 /* CONTENT PAGE SHOW RESPONSE */
@@ -265,11 +308,12 @@ html {
 
 .response-text {
     margin-bottom: 40px;
+    color: white;
 }
 
 .response-date_user {
     text-align: end;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid white;
     padding-bottom: 10px;
     font-size: 0.9em;
 }
@@ -293,11 +337,13 @@ html {
     bottom: 0;
     width: 100%;
     height: 70px;
-    background-color: lightsteelblue;
+    background-color: rgb(31, 28, 28);
 }
 
 
 .footer-div_text {
+    color: white;
     text-align: center;
     padding: 30px;
+    font-size: 1.2em;
 }

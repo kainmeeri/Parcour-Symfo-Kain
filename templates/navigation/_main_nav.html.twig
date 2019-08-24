@@ -1,49 +1,47 @@
 <nav class="nav">
     <div class="nav_div">
         <div>
-            <a href="{{ path('question_index')}}"><img src="{{ asset('img/faq-logo.jpg') }}" alt=""></a>
+            <a href="{{ path('question_index')}}"><h1>O'FAQ</h1></a>
         </div>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <div class="button_nav">
+                <form class="form-navbar" action="" method="POST">
+                 <button type="submit">Recherche</button>
+                    <input class="input-form-navbar" type="search" name="title" placeholder="Recherche" aria-label="Search" minlength=3>
+                </form>
                 <button><a href="{{ path('user_index') }}">{{ app.user.username}}</a></button>
                 <button><a href="{{ path('app_logout') }}">Déconnexion</a></button>
             </div>
         {% else %}
             <div class="button_nav">
-                <button><a href="{{ path('app_signup') }}">Inscription</a> </button>
+                <form class="form-navbar" action="" method="POST">
+                 <button type="submit">Recherche</button>
+                    <input class="input-form-navbar" type="search" name="title" placeholder="Recherche" aria-label="Search" minlength=3>
+                </form>
                 <button><a href="{{ path('app_login') }}">Connexion</a></button>
+                <button class="button-inscri"><a href="{{ path('app_signup') }}">Inscription</a> </button>
             </div>
         {% endif %}
+        
     </div>
 </nav>
 
 {% if app.request.requestUri != "/account" %}
 
 <div class="sous_header">
-    <button class="button-question"> <a href="{{ path('question_new') }}">Poser une question</a></button>
-    <div class="tag_menu">
-        <button class="button-tags">Tout les tags</button>
-        <div class="tag_menu-link">
-        
-        {% for tag in tag %}
-            <a href="{{ path('tag_index', {'id': tag.id })}}">{{ tag.name }}</a>
-        {% endfor %}
-        
-        </div>
-    </div>
+    <button class="button-question"> <p>&oplus;</p><a href="{{ path('question_new') }}">Poser une question</a></button>  
 </div>
 
 {% else %}
+
 
 {% endif %}
 
 
 
-    
-    {# <a class="btn btn-outline-primary my-2 my-sm-0"  href="{{ path('backend_movie_index')}} ">
-        {{ app.user.username }} - {{ app.user.role.name }}
-    </a> #}
 
+    
+   
    
 
     
