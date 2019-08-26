@@ -9,8 +9,12 @@
                     <h1>{{questions.title}}</h1>
                     <p>le {{questions.createdAt|localizeddate('none', 'none', 'FR_fr',null,'d MMMM yyyy')}}, par {{questions.user.username}}</p>
                 </div>
-                <div class="tag-response">
-                    <p>Tag</p>
+                <div>
+                    {% for tag in questions.tags %}
+                    <div class="tag-response">
+                        <p>{{tag.name}}</p>
+                    </div>
+                    {% endfor %} 
                 </div>
             </div>
             <div class="content-question_response">
@@ -22,7 +26,7 @@
             <div class="flex-responses">
                 <div class="response-text">
                     <p>{{ rep.content }}</p>   
-                    <p class="response-date_user">le {{questions.createdAt|localizeddate('none', 'none', 'FR_fr',null,'d MMMM yyyy')}}, par {{questions.user.username}}</p>  
+                    <p class="response-date_user">le {{rep.createdAt.date|localizeddate('none', 'none', 'FR_fr',null,'d MMMM yyyy')}}, par {{rep.user.username}}</p>  
                 </div> 
                 <div class="img-responses">
                     <img src="{{ asset('img/logo-user.png') }}" alt="">
@@ -30,7 +34,6 @@
             </div>         
             {% endfor %} 
 
-            <p>Répondre :</p>
             {{ form_start(form) }}
                 {{ form_widget(form) }}
                     <button class="btn">{{ button_label|default('Répondre') }}</button>

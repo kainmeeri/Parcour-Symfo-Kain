@@ -17,17 +17,26 @@ class QuestionController extends AbstractController
     /**
      * @Route("/", name="question_index", methods={"GET","POST"})
      */
-    public function index()
+    public function index(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository(Question::class);
-        $questions = $repository->findAllByOrder();
+
+        $searchTitle = $request->request->get('title');
+
+        if($searchTitle) {
+            $questions = $repository->findByTitle($searchTitle);
+        } else {
+            $questions = $repository->findAllByOrder();
+        }
+        
 
         $repository = $this->getDoctrine()->getRepository(Tag::class);
         $tagsNav = $repository->findAll();
 
         return $this->render('question/index.html.twig', [
             'questions' => $questions,
-            'tag' => $tagsNav
+            'tag' => $tagsNav,
+            'searchTitle' => $searchTitle
         ]);
     }
 

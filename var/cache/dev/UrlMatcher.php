@@ -55,7 +55,7 @@ return [
         159 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
         190 => [[['_route' => 'question_show', '_controller' => 'App\\Controller\\QuestionController::show'], ['id'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
         207 => [
-            [['_route' => 'tag_index', '_controller' => 'App\\Controller\\TagController::index'], ['id'], ['GET' => 0], null, false, true, null],
+            [['_route' => 'tag_index', '_controller' => 'App\\Controller\\TagController::index'], ['id'], ['GET' => 0, 'POST' => 1], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

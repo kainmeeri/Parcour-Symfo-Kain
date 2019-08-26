@@ -35,4 +35,16 @@ class QuestionRepository extends ServiceEntityRepository
             ')
             ->getResult();
     }
+
+     // retourne la liste des questions filtré par titre
+     public function findByTitle($title){
+
+        $query = $this->createQueryBuilder('m')
+                      ->where('m.title LIKE :searchTitle')
+                      ->setParameter('searchTitle', '%' . $title . '%')
+                      ->orderBy('m.title', 'ASC'); 
+
+        return $query->getQuery()->getResult();
+    }
+
 }

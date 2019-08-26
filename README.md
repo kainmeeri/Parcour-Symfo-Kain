@@ -4,7 +4,7 @@ Parcours de la spé symfony, by Kain  => https://github.com/O-clock-Sirius/symfo
 
 ## Jour 1
 
-Création d'un Trello pour "essayer" de m'organiser => https://trello.com/b/YJD6zNnP
+Création d'un Trello pour "essayer" de m'organiser => https://trello.com/b/YJD6zNnP => https://trello.com/invite/b/YJD6zNnP/26bed26f6f9133209e0d8c04ab6bf41b/faq
 
 Création d'un mocodo dispo dans 'doc'
 
@@ -13,6 +13,7 @@ Création d'un wireframe page d'accueil dans 'doc' ou => https://urlz.fr/alV0 + 
 Création de ma bdd + mes entity's via make:entity
 
 **Note perso** : Pour le moment ça va ! préparation du trello, mcd, wireframe, bdd, entity, controlleur et préparation à l'intégration + favicon.
+
 
 ## Jour 2
 
@@ -55,7 +56,6 @@ Ajout d'un système de login (fonctionnel)
 **Note perso** : Gros bug avec ma bdd, mais merci Claire, sinon ça avance doucement, à prévoir pour demain un fomulaire d'inscription fonctionnel  + fioriture.
 
 
-
 ## Jour 5
 
 Update Trello
@@ -88,11 +88,26 @@ Réglage du ROLE_USER par défault
 **Note perso** : Intégration plus lisible, réglages des quelque bug, bref c'est samedi, bon week-end.
 
 
+## Jour 7
+
+Update Trello
+
+Intégration des forms
+
+Réglage des forms (Length, Bank..)
+
+Ajout d'une barre de recherche qui liste par title, juste fonctionnel sur ma page d'index
+
+Finalisation de la page profil (update/edit non fonctionnel)
+
+**Note perso** : Journée lambda, quelque choses à faire à droite puis à gauche.. pas mal de fatigue donc tranquille aujourd'hui.
+
+
 ### Problème à regler
 
 Dans la liste des question d'un tag (question/tag/id) trié par ordre DESC
 
-Attribué un ROLE_USER à chaque inscription par défault
+
 
 
 

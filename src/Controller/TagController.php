@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TagController extends AbstractController
 {
     /**
-     * @Route("/question/tag/{id}", name="tag_index", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("/question/tag/{id}", name="tag_index", methods={"GET","POST"}, requirements={"id"="\d+"})
      */
     public function index(Tag $tags, $id)
     {

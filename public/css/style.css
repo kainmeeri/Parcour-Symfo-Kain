@@ -53,11 +53,17 @@ html {
 }
 
 .nav .nav_div .button-inscri {
-    
     border: none;
     font-size: 1em;
     font-weight: bold;
     background-color: rgb(0, 0, 0);
+    height: 50px;
+}
+
+.nav .nav_div .button-profil {
+    border: none;
+    font-size: 1em;
+    font-weight: bold;
     height: 50px;
 }
 
@@ -170,7 +176,8 @@ html {
 }
 
 .nb-response {
-    margin: 125px 10px
+    margin: 125px 10px;
+    color: white;
 }
 
 .border {
@@ -253,6 +260,7 @@ html {
     padding: 8px;
     text-align: center;
     margin: 1px;
+    
 }
 
 
@@ -282,6 +290,10 @@ html {
     color: white;
 }
 
+.tag-response {
+    color: white;
+}
+
 .content-question_response {
     margin: 30px 0 0 5px;
     width: 70%;
@@ -295,10 +307,30 @@ html {
     border-bottom: 1px solid white;
     font-size: 0.9em;
     padding-bottom: 5px;
-    
 }
 
+.search-error {
+    color: white;
+    text-align: center;
+    margin: 30px;
+    padding-bottom: 25px; 
+}
+.search-error strong {
+    font-weight: bold;
+}
+
+
 /* CONTENT PAGE SHOW RESPONSE */
+
+
+.nb-response-question {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid white;
+    font-size: 0.9em;
+    padding-bottom: 5px;
+    color: white;
+}
 
 .flex-responses {
     display: flex;
@@ -316,6 +348,7 @@ html {
     border-bottom: 1px solid white;
     padding-bottom: 10px;
     font-size: 0.9em;
+    width: 900px;
 }
 
 .img-responses {
@@ -328,6 +361,227 @@ html {
     height: 60px;
 }
 
+
+/* PAGE PROFILE */
+
+.profil-info {
+    color: white;
+    width: 40%;
+    margin: auto;
+    text-align: center;
+    background-color: rgb(31, 28, 28);
+    padding-top: 30px;
+    margin-bottom: 50px;
+    border-radius: 0 0 10px 10px;
+}
+
+.profil-info div {
+    padding-bottom: 20px;
+}
+
+.profil-info div a {
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    margin-top: 5px;
+}
+
+.profil-content {
+    color: white;
+    display: flex;
+    height: 500px;
+    overflow: scroll; 
+}
+
+.profil-question {
+    width: 50%;
+    padding: 20px;
+    overflow-wrap: break-word;
+}
+.profil-question div h2 {
+    font-size: 1.4em;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profil-question div p {
+    margin-bottom: 20px;
+}
+
+.profil-question div p a {
+    text-decoration: none;
+    color: white;
+}
+
+.profil-response {
+    width: 50%;
+    padding: 20px;
+    overflow-wrap: break-word; 
+}
+
+.profil-response div h2 {
+    font-size: 1.4em;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profil-response div p {
+    margin-bottom: 20px;
+}
+
+.profil-response div p a {
+    text-decoration: none;
+    color: white;
+}
+
+
+/* FORM INSCRIPTION */
+
+.title_form {
+    margin-bottom: 30px;
+    font-size: 1.2em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+form {
+    text-align: center;
+}
+
+#add_user {
+    width: 25%;
+    margin: auto;
+    background-color: rgb(31, 28, 28);
+    color: white;
+    padding: 30px;
+    border-radius: 3px;
+}
+
+#add_user div {
+    width: 65%;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#add_user div input {
+    height: 25px;
+    width: 300px;
+    border: none;
+    border-radius: 3px;
+    margin-top: 5px;
+    padding-left: 3px;
+}
+
+button.btn {
+    border: none;
+    margin-top: 20px;
+    padding: 8px;
+    color: white;
+    background-color: rgb(31, 28, 28);
+    font-weight: bold;
+    border-radius: 3px;
+}
+
+
+/* FORM CONNEXION */
+
+.log_user {
+    width: 25%;
+    margin: auto;
+    background-color: rgb(31, 28, 28);
+    color: white;
+    padding: 30px;
+    border-radius: 3px;
+}
+
+.log_user div {
+    width: 65%;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.log_user div input {
+    height: 25px;
+    width: 300px;
+    border: none;
+    border-radius: 3px;
+    margin-top: 5px;
+    padding-left: 3px;
+}
+
+
+/* FORM ADD QUESTION  */
+
+#question {
+    width: 25%;
+    margin: auto;
+    background-color: rgb(31, 28, 28);
+    color: white;
+    padding: 30px;
+    border-radius: 3px;
+}
+
+#question div {
+    width: 65%;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#question div input {
+    height: 25px;
+    width: 300px;
+    border: none;
+    border-radius: 3px;
+    margin-top: 5px;
+    padding-left: 3px;
+}
+
+#question div .input-texarea {
+    height: 70px;
+    width: 300px;
+    border: none;
+    border-radius: 3px;
+    margin-top: 5px;
+    padding-left: 3px;
+}
+
+div #question_tags {
+    height: 150px;
+    overflow-x: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+
+/* FORM RESPONSE */
+
+#add_response {
+    width: 75%;
+    margin: auto;
+    background-color: rgb(31, 28, 28);
+    color: white;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+
+#add_response div .input-response {
+    height: 90px;
+    width: 85%;
+    border: none;
+    border-radius: 3px;
+    margin-top: 5px;
+    padding-left: 3px;
+}
+
+#add_response div label.required{
+    display: none;
+}
 
 
 /* CONTENT FOOTER */

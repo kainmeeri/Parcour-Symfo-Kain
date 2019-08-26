@@ -9,12 +9,12 @@
                  <button type="submit">Recherche</button>
                     <input class="input-form-navbar" type="search" name="title" placeholder="Recherche" aria-label="Search" minlength=3>
                 </form>
-                <button><a href="{{ path('user_index') }}">{{ app.user.username}}</a></button>
+                <button class="button-profil"><a href="{{ path('user_index') }}">{{ app.user.username}}</a></button>
                 <button><a href="{{ path('app_logout') }}">Déconnexion</a></button>
             </div>
         {% else %}
             <div class="button_nav">
-                <form class="form-navbar" action="" method="POST">
+                <form class="form-navbar" action="{{ path('question_index') }}" method="POST">
                  <button type="submit">Recherche</button>
                     <input class="input-form-navbar" type="search" name="title" placeholder="Recherche" aria-label="Search" minlength=3>
                 </form>

@@ -35,7 +35,8 @@ class QuestionType extends AbstractType
                 'empty_data' => '', 
                 'constraints' => [
                     new NotBlank(),
-                ]
+                ],
+                'attr' => ['class' => 'input-texarea'],
             ])
             ->add('tags', EntityType::class, [                
                 'class' => Tag::class,            

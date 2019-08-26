@@ -36,6 +36,8 @@
                 </a>
             </div>
         </div>
+        {% else %}
+            <p class="search-error">Aucun film ne correspond à la recherche recherche : <strong> {{ searchTitle }} </strong></p> 
         {% endfor %} 
     </div>
 </div>
