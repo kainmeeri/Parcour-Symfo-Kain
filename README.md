@@ -103,9 +103,21 @@ Finalisation de la page profil (update/edit non fonctionnel)
 **Note perso** : Journée lambda, quelque choses à faire à droite puis à gauche.. pas mal de fatigue donc tranquille aujourd'hui.
 
 
+## Jour 8
+
+Création d'un serveur gandi pour y mettre mon parcours puis c'est tout mdr..
+
+
+**Note perso** : Presque rien fait today, mise à part avoie déployer mon parcours, mais soucis avec les fixtures, j'ai pas 
+de role_user et je sais pas comment acceder à ma bdd une fois deployer.
+
+
+
 ### Problème à regler
 
 Dans la liste des question d'un tag (question/tag/id) trié par ordre DESC
+
+Et quelque bug à gauche à droite + meilleur UX.
 
 
 
